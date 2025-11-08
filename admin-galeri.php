@@ -3,8 +3,8 @@ require_once 'config.php';
 requireLogin();
 
 // Konfigurasi
-$assetsDir = __DIR__ . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-$webAssetsPrefix = 'assets/';
+$assetsDir = __DIR__ . DIRECTORY_SEPARATOR . 'assets/galeri' . DIRECTORY_SEPARATOR;
+$webAssetsPrefix = 'assets/galeri/';
 $allowedExt = ['jpg','jpeg','png','gif','webp','JPG','JPEG','PNG','GIF','WEBP'];
 $maxSize = 10 * 1024 * 1024; // 10MB per file
 
@@ -88,6 +88,7 @@ usort($images, function($a, $b) { return filemtime($b) <=> filemtime($a); });
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,6 +100,7 @@ usort($images, function($a, $b) { return filemtime($b) <=> filemtime($a); });
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
@@ -144,14 +146,19 @@ usort($images, function($a, $b) { return filemtime($b) <=> filemtime($a); });
                     <i class="bi bi-list" style="font-size: 1.5rem;"></i>
                 </button>
                 <div>
-                    <div id="pageBreadcrumb" style="color: var(--text-secondary); font-size: 0.875rem; font-weight: 500;">Halaman / <span id="pageSectionName">Galeri</span></div>
-                    <h1 id="pageTitle" class="m-0" style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">Galeri</h1>
+                    <div id="pageBreadcrumb"
+                        style="color: var(--text-secondary); font-size: 0.875rem; font-weight: 500;">Halaman / <span
+                            id="pageSectionName">Galeri</span></div>
+                    <h1 id="pageTitle" class="m-0"
+                        style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">Galeri</h1>
                 </div>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <div class="d-flex align-items-center gap-2" style="background: white; padding: 10px 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(112, 144, 176, 0.08);">
+                <div class="d-flex align-items-center gap-2"
+                    style="background: white; padding: 10px 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(112, 144, 176, 0.08);">
                     <i class="bi bi-person-circle" style="font-size: 1.5rem; color: var(--primary-gradient-start);"></i>
-                    <span style="font-weight: 600; color: var(--text-primary);"><?php echo htmlspecialchars($_SESSION['admin_username']); ?></span>
+                    <span
+                        style="font-weight: 600; color: var(--text-primary);"><?php echo htmlspecialchars($_SESSION['admin_username']); ?></span>
                 </div>
             </div>
         </div>
@@ -175,8 +182,10 @@ usort($images, function($a, $b) { return filemtime($b) <=> filemtime($a); });
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
-                        <h5 class="mb-1" style="color: var(--text-primary);"><i class="bi bi-upload"></i> Tambah Foto</h5>
-                        <p class="mb-0" style="color: var(--text-secondary); font-size: 0.9rem;">Format: JPG, PNG, GIF, WEBP (maks 10MB per file)</p>
+                        <h5 class="mb-1" style="color: var(--text-primary);"><i class="bi bi-upload"></i> Tambah Foto
+                        </h5>
+                        <p class="mb-0" style="color: var(--text-secondary); font-size: 0.9rem;">Format: JPG, PNG, GIF,
+                            WEBP (maks 10MB per file)</p>
                     </div>
                 </div>
                 <div class="card-body">
@@ -186,7 +195,8 @@ usort($images, function($a, $b) { return filemtime($b) <=> filemtime($a); });
                             <input class="form-control" type="file" name="photos[]" accept="image/*" multiple required>
                         </div>
                         <div>
-                            <button class="btn btn-primary" type="submit"><i class="bi bi-cloud-arrow-up"></i> Unggah</button>
+                            <button class="btn btn-primary" type="submit"><i class="bi bi-cloud-arrow-up"></i>
+                                Unggah</button>
                         </div>
                     </form>
                 </div>
@@ -195,43 +205,49 @@ usort($images, function($a, $b) { return filemtime($b) <=> filemtime($a); });
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
-                        <h5 class="mb-1" style="color: var(--text-primary);"><i class="bi bi-images"></i> Daftar Foto</h5>
+                        <h5 class="mb-1" style="color: var(--text-primary);"><i class="bi bi-images"></i> Daftar Foto
+                        </h5>
                         <p class="mb-0" style="color: var(--text-secondary); font-size: 0.9rem;">Terbaru di atas</p>
                     </div>
                 </div>
                 <div class="card-body">
                     <?php if (empty($images)): ?>
-                        <div class="text-center text-muted">Belum ada foto di galeri.</div>
+                    <div class="text-center text-muted">Belum ada foto di galeri.</div>
                     <?php else: ?>
-                        <div class="row g-3">
-                            <?php foreach ($images as $imgPath): 
+                    <div class="row g-3">
+                        <?php foreach ($images as $imgPath): 
                                 $filename = basename($imgPath);
                                 $url = $webAssetsPrefix . $filename;
                                 $size = @filesize($imgPath);
                                 $sizeKb = $size ? round($size/1024) : 0;
                             ?>
-                            <div class="col-6 col-md-4 col-lg-3">
-                                <div class="card h-100" style="overflow:hidden; border-radius:16px;">
-                                    <div style="aspect-ratio:1/1; background:#f6f7fb; display:flex; align-items:center; justify-content:center;">
-                                        <img src="<?= htmlspecialchars($url) ?>" alt="<?= htmlspecialchars($filename) ?>" style="max-width:100%; max-height:100%; object-fit:cover;">
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="card h-100" style="overflow:hidden; border-radius:16px;">
+                                <div
+                                    style="aspect-ratio:1/1; background:#f6f7fb; display:flex; align-items:center; justify-content:center;">
+                                    <img src="<?= htmlspecialchars($url) ?>" alt="<?= htmlspecialchars($filename) ?>"
+                                        style="max-width:100%; max-height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <div class="small text-muted mb-2" title="<?= htmlspecialchars($filename) ?>"
+                                        style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                                        <?= htmlspecialchars($filename) ?>
                                     </div>
-                                    <div class="card-body d-flex flex-column">
-                                        <div class="small text-muted mb-2" title="<?= htmlspecialchars($filename) ?>" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-                                            <?= htmlspecialchars($filename) ?>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-auto">
-                                            <span class="badge bg-light text-dark border"><?= $sizeKb ?> KB</span>
-                                            <form method="post" onsubmit="return confirm('Hapus foto ini?');">
-                                                <input type="hidden" name="action" value="delete">
-                                                <input type="hidden" name="filename" value="<?= htmlspecialchars($filename) ?>">
-                                                <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-                                            </form>
-                                        </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                                        <span class="badge bg-light text-dark border"><?= $sizeKb ?> KB</span>
+                                        <form method="post" onsubmit="return confirm('Hapus foto ini?');">
+                                            <input type="hidden" name="action" value="delete">
+                                            <input type="hidden" name="filename"
+                                                value="<?= htmlspecialchars($filename) ?>">
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="bi bi-trash"></i></button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            <?php endforeach; ?>
                         </div>
+                        <?php endforeach; ?>
+                    </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -251,4 +267,5 @@ usort($images, function($a, $b) { return filemtime($b) <=> filemtime($a); });
     });
     </script>
 </body>
+
 </html>

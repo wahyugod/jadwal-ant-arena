@@ -96,14 +96,14 @@ $result = $conn->query($sql);
             </div>
             <?php
             // Kumpulkan daftar gambar dari folder assets (jpg, jpeg, png, webp, gif)
-            $imageFiles = glob(__DIR__ . '/assets/*.{jpg,jpeg,png,webp,gif,JPG,JPEG,PNG,WEBP,GIF}', GLOB_BRACE);
+            $imageFiles = glob(__DIR__ . '/assets/galeri/*.{jpg,jpeg,png,webp,gif,JPG,JPEG,PNG,WEBP,GIF}', GLOB_BRACE);
             $imageUrls = [];
             foreach ($imageFiles as $filePath) {
-                $imageUrls[] = 'assets/' . basename($filePath);
+                $imageUrls[] = 'assets/galeri/' . basename($filePath);
             }
             // Jika tidak ada gambar ditemukan, fallback ke galeri.jpg
             if (empty($imageUrls)) {
-                $imageUrls = ['assets/galeri.jpg'];
+                $imageUrls = ['assets/galeri/galeri1.png'];
             }
             // Pastikan minimal 3 item agar selalu ada kiri, tengah, kanan
             while (count($imageUrls) < 3) {
