@@ -53,9 +53,24 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   KEY `idx_kategori` (`kategori`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Data sample untuk testing
 INSERT INTO `transaksi` (`tanggal`, `deskripsi`, `kategori`, `nominal`) VALUES
 ('2025-11-01', 'Pembayaran sewa lapangan Tim A', 'pemasukan', 500000),
 ('2025-11-02', 'Pembayaran sewa lapangan Tim B', 'pemasukan', 500000),
 ('2025-11-03', 'Pembelian shuttle cock', 'pengeluaran', 150000),
 ('2025-11-04', 'Pembayaran listrik', 'pengeluaran', 200000);
+
+-- Tabel untuk testimoni
+CREATE TABLE IF NOT EXISTS `testimoni` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  `testimoni` text NOT NULL,
+  `foto` varchar(255) NOT NULL,
+  `tanggal` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data sample untuk testimoni
+INSERT INTO `testimoni` (`nama`, `testimoni`, `foto`, `tanggal`) VALUES
+('John Doe', 'Lapangan sangat bagus dan pelayanannya ramah!', 'default1.jpg', '2025-11-01'),
+('Jane Smith', 'Fasilitas lengkap dan nyaman untuk berlatih.', 'default2.jpg', '2025-11-02');

@@ -32,4 +32,13 @@ function requireLogin() {
         exit();
     }
 }
+
+// Flash message helpers
+function setError($msg) {
+    $_SESSION['error_message'] = $msg;
+}
+
+function setSuccess($msg) {
+    $_SESSION['success_message'] = $msg;
+}
 ?>
