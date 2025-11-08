@@ -39,6 +39,10 @@ $result = $conn->query($sql);
                 <i class="bi bi-calendar-week"></i>
                 <span>Penjadwalan</span>
             </a>
+            <a class="nav-link" href="admin-galeri.php">
+                <i class="bi bi-images"></i>
+                <span>Galeri</span>
+            </a>
             <a class="nav-link" href="admin-transaksi.php">
                 <i class="bi bi-cash-coin"></i>
                 <span>Transaksi</span>

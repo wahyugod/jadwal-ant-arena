@@ -31,7 +31,8 @@ $result = $conn->query($sql);
                         <i class="bi bi-calendar-week" style="color: var(--primary-gradient-start);"></i>
                         Jadwal Operasional
                     </h2>
-                    <p class="mb-0" style="color: var(--text-secondary); font-size: 0.95rem;">Informasi Jadwal dan Reservasi</p>
+                    <p class="mb-0" style="color: var(--text-secondary); font-size: 0.95rem;">Informasi Jadwal dan
+                        Reservasi</p>
                 </div>
                 <a href="admin-login.php" class="btn btn-primary" style="text-decoration: none;">
                     <i class="bi bi-lock"></i> Admin
@@ -80,9 +81,130 @@ $result = $conn->query($sql);
                 </small>
             </div>
         </section>
+
+        <!-- gallery section -->
+        <section id="gallery" class="gallery mt-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="mb-1">
+                        <i class="bi bi-images" style="color: var(--primary-gradient-start);"></i>
+                        Galeri Ant Arena
+                    </h2>
+                    <p class="mb-0" style="color: var(--text-secondary); font-size: 0.95rem;">Lihat koleksi foto kami
+                    </p>
+                </div>
+            </div>
+            <?php
+            // Kumpulkan daftar gambar dari folder assets (jpg, jpeg, png, webp, gif)
+            $imageFiles = glob(__DIR__ . '/assets/*.{jpg,jpeg,png,webp,gif,JPG,JPEG,PNG,WEBP,GIF}', GLOB_BRACE);
+            $imageUrls = [];
+            foreach ($imageFiles as $filePath) {
+                $imageUrls[] = 'assets/' . basename($filePath);
+            }
+            // Jika tidak ada gambar ditemukan, fallback ke galeri.jpg
+            if (empty($imageUrls)) {
+                $imageUrls = ['assets/galeri.jpg'];
+            }
+            // Pastikan minimal 3 item agar selalu ada kiri, tengah, kanan
+            while (count($imageUrls) < 3) {
+                $imageUrls[] = $imageUrls[count($imageUrls) % max(1, count($imageUrls))];
+            }
+            ?>
+
+            <div class="gallery-slider">
+                <div class="gallery-viewport">
+                    <!-- Items akan diinject via JS; berikut fallback tanpa JS -->
+                    <noscript>
+                        <div class="gallery-item is-prev"><img src="<?= htmlspecialchars($imageUrls[0]) ?>"
+                                alt="Galeri 1"></div>
+                        <div class="gallery-item is-current"><img src="<?= htmlspecialchars($imageUrls[1]) ?>"
+                                alt="Galeri 2"></div>
+                        <div class="gallery-item is-next"><img src="<?= htmlspecialchars($imageUrls[2]) ?>"
+                                alt="Galeri 3"></div>
+                    </noscript>
+                </div>
+            </div>
+        </section>
+        <!-- end gallery section -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Galeri slider: tampilkan 1 foto tengah besar + 2 foto samping kecil, geser otomatis looping
+    (function() {
+        const images = <?php echo json_encode(array_values($imageUrls), JSON_UNESCAPED_SLASHES); ?>;
+        const viewport = document.querySelector('.gallery-viewport');
+        if (!viewport || !images || !images.length) return;
+
+        // Buat elemen item untuk setiap gambar
+        images.forEach((src, idx) => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.dataset.index = String(idx);
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Galeri ' + (idx + 1);
+            item.appendChild(img);
+            viewport.appendChild(item);
+        });
+
+        const items = Array.from(viewport.querySelectorAll('.gallery-item'));
+        let current = 0;
+
+        function applyClasses() {
+            const n = items.length;
+            const prev = (current - 1 + n) % n;
+            const next = (current + 1) % n;
+            items.forEach((el, i) => {
+                el.classList.remove('is-prev', 'is-current', 'is-next', 'is-hidden');
+                if (i === current) el.classList.add('is-current');
+                else if (i === prev) el.classList.add('is-prev');
+                else if (i === next) el.classList.add('is-next');
+                else el.classList.add('is-hidden');
+            });
+        }
+
+        function nextSlide() {
+            current = (current + 1) % items.length;
+            applyClasses();
+        }
+
+        function prevSlide() {
+            current = (current - 1 + items.length) % items.length;
+            applyClasses();
+        }
+
+        applyClasses();
+
+        // Auto-play
+        let delay = 3500;
+        let timer = setInterval(nextSlide, delay);
+        // Pause on hover (desktop)
+        viewport.addEventListener('mouseenter', () => {
+            clearInterval(timer);
+        });
+        viewport.addEventListener('mouseleave', () => {
+            timer = setInterval(nextSlide, delay);
+        });
+
+        // Optional: swipe support for mobile
+        let startX = null;
+        viewport.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, {
+            passive: true
+        });
+        viewport.addEventListener('touchend', (e) => {
+            if (startX == null) return;
+            const dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 40) {
+                if (dx < 0) nextSlide();
+                else prevSlide();
+            }
+            startX = null;
+        });
+    })();
+    </script>
 </body>
 
 </html>
