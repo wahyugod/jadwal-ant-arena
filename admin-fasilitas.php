@@ -116,6 +116,7 @@ $result = $conn->query($sql);
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Foto</th>
                                     <th>Nama Fasilitas</th>
                                     <th>Deskripsi</th>
                                     <th width="150">Aksi</th>
@@ -127,6 +128,7 @@ $result = $conn->query($sql);
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
+                                        echo "<td><img src='assets/fasilitas/" . htmlspecialchars($row['foto']) . "' alt='Foto Fasilitas' style='width: 100px; height: 100px; object-fit: cover;'></td>";
                                         echo "<td>" . htmlspecialchars($row['nama']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['deskripsi']) . "</td>";
                                         echo "<td>";
@@ -155,7 +157,7 @@ $result = $conn->query($sql);
                     <h5 class="modal-title">Tambah Fasilitas</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form action="admin-fasilitas-actions.php" method="POST">
+                <form action="admin-fasilitas-actions.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="create">
                     <div class="modal-body">
                         <div class="mb-3">
@@ -165,6 +167,11 @@ $result = $conn->query($sql);
                         <div class="mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
                             <textarea class="form-control" id="deskripsi" name="deskripsi" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">Foto Fasilitas</label>
+                            <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
+                            <small class="form-text text-muted">Format yang diperbolehkan: JPG, JPEG, PNG, GIF. Maks: 5MB</small>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -183,7 +190,7 @@ $result = $conn->query($sql);
                     <h5 class="modal-title">Edit Fasilitas</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form action="admin-fasilitas-actions.php" method="POST">
+                <form action="admin-fasilitas-actions.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="update">
                     <input type="hidden" name="id" id="edit_id">
                     <div class="modal-body">
@@ -194,6 +201,12 @@ $result = $conn->query($sql);
                         <div class="mb-3">
                             <label for="edit_deskripsi" class="form-label">Deskripsi</label>
                             <textarea class="form-control" id="edit_deskripsi" name="deskripsi" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_foto" class="form-label">Foto Fasilitas</label>
+                            <input type="file" class="form-control" id="edit_foto" name="foto" accept="image/*">
+                            <small class="form-text text-muted">Format yang diperbolehkan: JPG, JPEG, PNG, GIF. Maks: 5MB. Kosongkan jika tidak ingin mengubah foto.</small>
+                            <div id="current_photo" class="mt-2"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -241,6 +254,9 @@ $result = $conn->query($sql);
         document.getElementById('edit_id').value = data.id;
         document.getElementById('edit_nama').value = data.nama;
         document.getElementById('edit_deskripsi').value = data.deskripsi;
+        document.getElementById('current_photo').innerHTML = data.foto ? 
+            `<img src="assets/fasilitas/${data.foto}" alt="Foto Saat Ini" style="max-width: 200px; max-height: 200px; object-fit: contain;">` : 
+            'Tidak ada foto';
         const modal = new bootstrap.Modal(document.getElementById('modalEdit'));
         modal.show();
     }
