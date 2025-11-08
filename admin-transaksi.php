@@ -174,6 +174,10 @@ function getNextSortOrder($column) {
                 <i class="bi bi-chat-quote"></i>
                 <span>Testimoni</span>
             </a>
+            <a class="nav-link" href="admin-fasilitas.php">
+                <i class="bi bi-list-check"></i>
+                <span>Fasilitas</span>
+            </a>
             <a class="nav-link active" href="admin-transaksi.php">
                 <i class="bi bi-cash-coin"></i>
                 <span>Transaksi</span>

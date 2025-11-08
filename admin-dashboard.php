@@ -47,6 +47,10 @@ $result = $conn->query($sql);
                 <i class="bi bi-chat-quote"></i>
                 <span>Testimoni</span>
             </a>
+            <a class="nav-link" href="admin-fasilitas.php">
+                <i class="bi bi-list-check"></i>
+                <span>Fasilitas</span>
+            </a>
             <a class="nav-link" href="admin-transaksi.php">
                 <i class="bi bi-cash-coin"></i>
                 <span>Transaksi</span>
@@ -280,6 +284,7 @@ $result = $conn->query($sql);
 
             <!-- Section: Edit Jadwal -->
             <div class="section-content" id="section-edit-jadwal">
+                
                 <h4 class="mb-4" style="color: var(--text-primary); font-weight: 700;">📅 Manajemen Jadwal</h4>
 
                 <div class="mb-3 d-flex gap-2 justify-content-end">

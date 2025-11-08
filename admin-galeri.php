@@ -125,6 +125,10 @@ usort($images, function($a, $b) { return filemtime($b) <=> filemtime($a); });
                 <i class="bi bi-chat-quote"></i>
                 <span>Testimoni</span>
             </a>
+            <a class="nav-link" href="admin-fasilitas.php">
+                <i class="bi bi-list-check"></i>
+                <span>Fasilitas</span>
+            </a>
             <a class="nav-link" href="admin-transaksi.php">
                 <i class="bi bi-cash-coin"></i>
                 <span>Transaksi</span>

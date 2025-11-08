@@ -1,3 +1,18 @@
+-- Tabel untuk fasilitas
+CREATE TABLE IF NOT EXISTS `fasilitas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data sample fasilitas
+INSERT INTO `fasilitas` (`nama`, `deskripsi`) VALUES
+('Lapangan Utama', 'Lapangan bulutangkis utama dengan lantai vinyl dan pencahayaan LED'),
+('Ruang Ganti', 'Ruang ganti bersih dan nyaman untuk pemain'),
+('Kantin', 'Kantin menyediakan makanan dan minuman ringan'),
+('Parkir Luas', 'Area parkir kendaraan yang luas dan aman');
 -- Database untuk Jadwal Ant Arena
 -- Jalankan script ini di phpMyAdmin atau MySQL client
 
