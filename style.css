@@ -1008,3 +1008,51 @@ body.site-index .site-container {
     display: none;
   }
 }
+
+/* Slider controls (prev/next) - positioned on left/right edges */
+.gallery-slider {
+  position: relative; /* untuk positioning absolute buttons */
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  z-index: 40;
+  cursor: pointer;
+}
+
+.slider-btn.slider-prev {
+  left: -22px; /* half width to overlap edge */
+}
+
+.slider-btn.slider-next {
+  right: -22px;
+}
+
+.slider-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-btn i {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+}
+
+@media (max-width: 576px) {
+  /* hide controls on very small screens (use swipe) */
+  .slider-btn {
+    display: none;
+  }
+}
