@@ -340,15 +340,15 @@ $result = $conn->query($sql);
                                                 $raw = trim($row[$day]);
                                                 // Treat empty, dash or 'Tersedia' as empty/default and display 'Tersedia'
                                                 if ($raw === '' || $raw === '-' || strcasecmp($raw, 'Tersedia') === 0) {
-                                                    $display = 'Tersedia';
+                                                    $display = '<span class="text-success">Tersedia</span>';
                                                     $dataValue = '';
                                                 } else {
-                                                    $display = $raw;
+                                                    $display = htmlspecialchars($raw);
                                                     $dataValue = $raw;
                                                 }
 
                                                 echo "<td class='team-cell' data-id='" . $row['id'] . "' data-day='" . $day . "' data-value='" . htmlspecialchars($dataValue) . "' data-jam='" . htmlspecialchars($row['jam']) . "'>";
-                                                echo htmlspecialchars($display);
+                                                echo $display; // Don't use htmlspecialchars here since we're using HTML span tag
                                                 echo "</td>";
                                             }
 
@@ -908,7 +908,8 @@ $result = $conn->query($sql);
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        currentCell.textContent = newValue;
+                        // Escape HTML entities for displaying team name
+                        currentCell.textContent = newValue; // Use textContent for security when showing team name
                         currentCell.dataset.value = newValue;
 
                         showModalAlert('Berhasil diupdate!', 'success');
@@ -955,7 +956,7 @@ $result = $conn->query($sql);
             .then(response => response.json())
             .then(data => {
                     if (data.success) {
-                    currentCell.textContent = 'Tersedia';
+                    currentCell.innerHTML = '<span class="text-success">Tersedia</span>';
                     // keep dataset empty so modal will show empty input for adding a team
                     currentCell.dataset.value = '';
                     document.getElementById('teamNameInput').value = '';
@@ -1046,7 +1047,7 @@ $result = $conn->query($sql);
 
                     // Update all cells in the table
                     document.querySelectorAll('.team-cell').forEach(cell => {
-                        cell.textContent = 'Tersedia';
+                        cell.innerHTML = '<span class="text-success">Tersedia</span>';
                         // keep dataset.value empty so modal shows empty input for adding a team
                         cell.dataset.value = '';
                     });
@@ -1096,7 +1097,7 @@ $result = $conn->query($sql);
 
                         // Update semua cell untuk hari tersebut (display Tersedia, keep dataset empty)
                         document.querySelectorAll(`.team-cell[data-day="${day}"]`).forEach(cell => {
-                            cell.textContent = 'Tersedia';
+                            cell.innerHTML = '<span class="text-success">Tersedia</span>';
                             cell.dataset.value = '';
                         });
 

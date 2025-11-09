@@ -58,13 +58,17 @@ $result = $conn->query($sql);
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td><strong>" . htmlspecialchars($row['jam']) . "</strong></td>";
-                        echo "<td>" . htmlspecialchars($row['senin']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['selasa']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['rabu']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['kamis']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['jumat']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['sabtu']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['minggu']) . "</td>";
+                        // Fungsi helper untuk menampilkan nilai atau "Tersedia" jika kosong
+                        $showValue = function($val) {
+                            return empty(trim($val)) ? '<span class="text-success">Tersedia</span>' : htmlspecialchars($val);
+                        };
+                        echo "<td>" . $showValue($row['senin']) . "</td>";
+                        echo "<td>" . $showValue($row['selasa']) . "</td>";
+                        echo "<td>" . $showValue($row['rabu']) . "</td>";
+                        echo "<td>" . $showValue($row['kamis']) . "</td>";
+                        echo "<td>" . $showValue($row['jumat']) . "</td>";
+                        echo "<td>" . $showValue($row['sabtu']) . "</td>";
+                        echo "<td>" . $showValue($row['minggu']) . "</td>";
                         echo "</tr>";
                     }
                 } else {
