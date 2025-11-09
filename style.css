@@ -1033,11 +1033,11 @@ body.site-index .site-container {
 }
 
 .slider-btn.slider-prev {
-  left: -22px; /* half width to overlap edge */
+  left: -54px !important; /* half width to overlap edge */
 }
 
 .slider-btn.slider-next {
-  right: -22px;
+  right: -54px !important;
 }
 
 .slider-btn:hover {
