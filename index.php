@@ -28,6 +28,14 @@ if ($res) {
   $res->free_result();
 }
 
+// Ambil FAQ
+$faqRows = [];
+$res = $conn->query("SELECT * FROM faqs ORDER BY urutan ASC, id DESC");
+if ($res) {
+    while ($row = $res->fetch_assoc()) { $faqRows[] = $row; }
+    $res->free_result();
+}
+
 // Ambil gambar galeri dari folder yang dikelola admin
 $galeriImages = glob(__DIR__ . '/assets/galeri/*.{jpg,jpeg,png,webp,gif,JPG,JPEG,PNG,WEBP,GIF}', GLOB_BRACE) ?: [];
 // Urutkan terbaru di atas
@@ -615,72 +623,30 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="faq-container">
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Apakah bisa membawa raket sendiri?</h3>
-                            <button class="faq-toggle" type="button">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
+                    <?php if (!empty($faqRows)): ?>
+                        <?php foreach ($faqRows as $f): ?>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3><?= e($f['pertanyaan']) ?></h3>
+                                    <button class="faq-toggle" type="button">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                                <div class="faq-answer">
+                                    <p><?= nl2br(e($f['jawaban'])) ?></p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <!-- Fallback FAQ jika belum ada data -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>Bagaimana cara reservasi?</h3>
+                                <button class="faq-toggle" type="button"><i class="bi bi-plus-lg"></i></button>
+                            </div>
+                            <div class="faq-answer"><p>Isi form reservasi atau hubungi WA kami. Konfirmasi 1x24 jam.</p></div>
                         </div>
-                        <div class="faq-answer">
-                            <p>Ya, pengunjung boleh membawa raket dan shuttlecock sendiri. Kami menyediakan lapangan
-                                dengan fasilitas lengkap untuk kenyamanan bermain Anda.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Apakah tersedia tempat parkir?</h3>
-                            <button class="faq-toggle" type="button">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Tersedia area parkir luas untuk motor dan mobil. Parkir gratis untuk semua pengunjung
-                                yang menyewa lapangan.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Bagaimana cara reservasi?</h3>
-                            <button class="faq-toggle" type="button">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Silakan isi form reservasi di bawah atau hubungi kami melalui WhatsApp. Kami akan
-                                konfirmasi jadwal Anda dalam waktu 1x24 jam.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Berapa minimal sewa lapangan?</h3>
-                            <button class="faq-toggle" type="button">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Minimal sewa adalah 3 jam untuk paket per jam. Untuk paket bulanan, Anda mendapatkan 4
-                                sesi bermain (3 jam per sesi) dalam sebulan.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Apakah ada diskon untuk member?</h3>
-                            <button class="faq-toggle" type="button">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Ya, member bulanan mendapatkan diskon 15% untuk sewa tambahan dan gratis shuttlecock
-                                setiap sesi bermain.</p>
-                        </div>
-                    </div>
-
+                    <?php endif; ?>
                 </div>
 
             </div>

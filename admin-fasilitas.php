@@ -51,7 +51,11 @@ $result = $conn->query($sql);
                 <i class="bi bi-chat-quote"></i>
                 <span>Testimoni</span>
             </a>
-            <a class="nav-link" href="admin-fasilitas.php">
+            <a class="nav-link" href="admin-faq.php">
+                <i class="bi bi-question-circle"></i>
+                <span>FAQ</span>
+            </a>
+            <a class="nav-link active" href="admin-fasilitas.php">
                 <i class="bi bi-list-check"></i>
                 <span>Fasilitas</span>
             </a>

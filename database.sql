@@ -114,3 +114,20 @@ CREATE TABLE IF NOT EXISTS `reservasi` (
 INSERT INTO `reservasi` (`nama_tim`, `email`, `no_telepon`, `hari`, `jam`, `status`, `pesan`, `tanggal_mulai`) VALUES
 ('Tim Garuda', 'tim.garuda@email.com', '081234567890', 'senin', '08.00 - 11.00', 'pending', 'Mohon slot untuk tim regular', '2025-11-10'),
 ('Meteor Club', 'meteor.club@email.com', '082345678901', 'rabu', '17.00 - 20.00', 'pending', 'Reservasi untuk tim baru', '2025-11-12');
+
+CREATE TABLE IF NOT EXISTS `faqs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pertanyaan` varchar(255) NOT NULL,
+  `jawaban` text NOT NULL,
+  `urutan` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_urutan` (`urutan`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `faqs` (`pertanyaan`, `jawaban`, `urutan`) VALUES 
+('Bagaimana cara melakukan reservasi lapangan?', 'Anda dapat melakukan reservasi melalui menu "Reservasi" di website, pilih tanggal dan jam yang tersedia, lalu konfirmasi pembayaran.', 1), 
+('Apakah bisa membatalkan reservasi?', 'Ya, pembatalan bisa dilakukan maksimal 12 jam sebelum waktu main melalui menu "Riwayat Reservasi".', 2), 
+('Apa metode pembayaran yang tersedia?', 'Kami menerima pembayaran melalui transfer bank, e-wallet (OVO, DANA, GoPay), dan kartu debit.', 3), 
+('Berapa lama durasi satu sesi sewa lapangan?', 'Satu sesi sewa lapangan berdurasi 1 jam. Anda dapat menambah sesi sesuai kebutuhan jika tersedia.', 4), 
+('Apakah tersedia penyewaan raket dan shuttlecock?', 'Ya, tersedia penyewaan raket dan pembelian shuttlecock langsung di lokasi.', 5);

@@ -178,23 +178,26 @@ function getNextSortOrder($column) {
                 <i class="bi bi-chat-quote"></i>
                 <span>Testimoni</span>
             </a>
-            <a class="nav-link" href="admin-fasilitas.php">
-                <i class="bi bi-list-check"></i>
-                <span>Fasilitas</span>
-            </a>
-            <a class="nav-link active" href="admin-transaksi.php">
-                <i class="bi bi-cash-coin"></i>
-                <span>Transaksi</span>
-            </a>
-            <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 30px;">
-            <a class="nav-link" href="index.php" target="_blank">
-                <i class="bi bi-eye"></i>
-                <span>Halaman Publik</span>
-            </a>
-            <a class="nav-link" href="admin-logout.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Keluar</span>
-            </a>
+            <a class="nav-link" href="admin-faq.php">
+                <i class="bi bi-question-circle"></i>
+                <span>FAQ</span>
+                <a class="nav-link" href="admin-fasilitas.php">
+                    <i class="bi bi-list-check"></i>
+                    <span>Fasilitas</span>
+                </a>
+                <a class="nav-link active" href="admin-transaksi.php">
+                    <i class="bi bi-cash-coin"></i>
+                    <span>Transaksi</span>
+                </a>
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 30px;">
+                <a class="nav-link" href="index.php" target="_blank">
+                    <i class="bi bi-eye"></i>
+                    <span>Halaman Publik</span>
+                </a>
+                <a class="nav-link" href="admin-logout.php">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Keluar</span>
+                </a>
         </nav>
     </div>
 
