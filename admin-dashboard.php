@@ -21,6 +21,43 @@ $result = $conn->query($sql);
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <style>
+    .nav-dropdown {
+        position: relative;
+    }
+
+    .nav-dropdown-toggle {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .nav-dropdown-toggle .bi-chevron-down {
+        transition: transform 0.3s ease;
+        font-size: 0.75rem;
+    }
+
+    .nav-dropdown.show .bi-chevron-down {
+        transform: rotate(180deg);
+    }
+
+    .nav-dropdown-menu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding-left: 20px;
+    }
+
+    .nav-dropdown.show .nav-dropdown-menu {
+        max-height: 500px;
+    }
+
+    .nav-dropdown-menu .nav-link {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+    </style>
 </head>
 
 <body>
@@ -43,26 +80,59 @@ $result = $conn->query($sql);
                 <i class="bi bi-calendar-check"></i>
                 <span>Reservasi</span>
             </a>
-            <a class="nav-link" href="admin-galeri.php">
-                <i class="bi bi-images"></i>
-                <span>Galeri</span>
-            </a>
-            <a class="nav-link" href="admin-testimoni.php">
-                <i class="bi bi-chat-quote"></i>
-                <span>Testimoni</span>
-            </a>
-            <a class="nav-link" href="admin-faq.php">
-                <i class="bi bi-question-circle"></i>
-                <span>FAQ</span>
-            </a>
-            <a class="nav-link" href="admin-fasilitas.php">
-                <i class="bi bi-list-check"></i>
-                <span>Fasilitas</span>
-            </a>
             <a class="nav-link" href="admin-transaksi.php">
                 <i class="bi bi-cash-coin"></i>
                 <span>Transaksi</span>
             </a>
+
+            <div class="nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle">
+                    <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                        <i class="bi bi-gear"></i>
+                        <span>Pengaturan Web</span>
+                    </div>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+                <div class="nav-dropdown-menu">
+                    <a class="nav-link" href="admin-hero.php">
+                        <i class="bi bi-lightning-charge"></i>
+                        <span>Hero</span>
+                    </a>
+                    <a class="nav-link" href="admin-tentang.php">
+                        <i class="bi bi-info-circle"></i>
+                        <span>Tentang</span>
+                    </a>
+                    <a class="nav-link" href="admin-fasilitas.php">
+                        <i class="bi bi-list-check"></i>
+                        <span>Fasilitas</span>
+                    </a>
+                    <a class="nav-link" href="admin-galeri.php">
+                        <i class="bi bi-images"></i>
+                        <span>Galeri</span>
+                    </a>
+                    <a class="nav-link" href="admin-testimoni.php">
+                        <i class="bi bi-chat-quote"></i>
+                        <span>Testimoni</span>
+                    </a>
+                    <a class="nav-link" href="admin-paket.php">
+                        <i class="bi bi-tags"></i>
+                        <span>Paket</span>
+                    </a>
+                    <a class="nav-link" href="admin-faq.php">
+                        <i class="bi bi-question-circle"></i>
+                        <span>FAQ</span>
+                    </a>
+                    <a class="nav-link" href="admin-kontak.php">
+                        <i class="bi bi-envelope"></i>
+                        <span>Kontak</span>
+                    </a>
+                    <a class="nav-link" href="admin-footer.php">
+                        <i class="bi bi-layout-text-window-reverse"></i>
+                        <span>Footer</span>
+                    </a>
+                </div>
+            </div>
+
             <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 30px;">
             <a class="nav-link" href="index.php" target="_blank">
                 <i class="bi bi-eye"></i>
@@ -456,6 +526,15 @@ $result = $conn->query($sql);
         // Mobile sidebar toggle
         document.getElementById('sidebarToggle').addEventListener('click', function() {
             document.getElementById('sidebar').classList.toggle('show');
+        });
+
+        // Dropdown toggle untuk Pengaturan Web
+        document.querySelectorAll('.nav-dropdown-toggle').forEach(function(toggle) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dropdown = this.closest('.nav-dropdown');
+                dropdown.classList.toggle('show');
+            });
         });
 
         // Honor URL hash so we can preserve the active section after actions/reloads
@@ -915,7 +994,7 @@ $result = $conn->query($sql);
                     if (data.success) {
                         // Escape HTML entities for displaying team name
                         currentCell.textContent =
-                        newValue; // Use textContent for security when showing team name
+                            newValue; // Use textContent for security when showing team name
                         currentCell.dataset.value = newValue;
 
                         showModalAlert('Berhasil diupdate!', 'success');

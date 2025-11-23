@@ -132,3 +132,86 @@ INSERT INTO `faqs` (`pertanyaan`, `jawaban`, `urutan`) VALUES
 ('Apa metode pembayaran yang tersedia?', 'Kami menerima pembayaran melalui transfer bank, e-wallet (OVO, DANA, GoPay), dan kartu debit.', 3), 
 ('Berapa lama durasi satu sesi sewa lapangan?', 'Satu sesi sewa lapangan berdurasi 1 jam. Anda dapat menambah sesi sesuai kebutuhan jika tersedia.', 4), 
 ('Apakah tersedia penyewaan raket dan shuttlecock?', 'Ya, tersedia penyewaan raket dan pembelian shuttlecock langsung di lokasi.', 5);
+
+-- Tabel Hero (konten bagian beranda)
+CREATE TABLE IF NOT EXISTS `hero` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `heading` VARCHAR(255) NOT NULL,
+  `image_path` VARCHAR(255) NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data awal hero (gunakan gambar default jika belum diganti)
+INSERT INTO `hero` (`heading`, `image_path`) VALUES ('Raih Kemenangan di Setiap Pukulan!', 'assets/hero/home.jpeg');
+
+-- Tabel About (konten bagian tentang)
+CREATE TABLE IF NOT EXISTS `about` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `image_path` VARCHAR(255) NOT NULL,
+  `paragraph_1` TEXT NOT NULL,
+  `paragraph_2` TEXT NOT NULL,
+  `paragraph_3` TEXT NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data awal about
+INSERT INTO `about` (`image_path`, `paragraph_1`, `paragraph_2`, `paragraph_3`) VALUES 
+('assets/img/about.jpeg', 
+'<strong>@nt\'s Arena</strong> berdiri pada Juli 2025 dan dikelola oleh <strong>Ariyanto</strong>. Kami memiliki tujuan untuk mendorong semangat olahraga dan membangun komunitas bulutangkis yang aktif. Kebersihan terjamin dan fasilitas kami lengkap untuk kenyamanan bermain Anda.',
+'Dengan dukungan fasilitas lengkap seperti lapangan berkualitas, area istirahat yang nyaman, serta layanan pemesanan jadwal yang mudah, kami siap menjadi tempat terbaik bagi Anda untuk berlatih, bersaing, dan menikmati permainan bulutangkis setiap hari.',
+'Sebagai arena yang terus berkembang, @nt\'s Arena juga berkomitmen untuk memberikan pengalaman terbaik bagi setiap pengunjung melalui pelayanan ramah dan sistem pengelolaan yang profesional. Kami selalu terbuka untuk berbagai kegiatan seperti latihan rutin, sparring, hingga turnamen internal yang dapat meningkatkan kemampuan sekaligus mempererat hubungan antar pemain.');
+
+-- Tabel Paket Harga
+CREATE TABLE IF NOT EXISTS `paket` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `nama` VARCHAR(100) NOT NULL,
+  `slug` VARCHAR(50) NOT NULL,
+  `subtitle` VARCHAR(255) NOT NULL,
+  `price` INT NOT NULL,
+  `period` VARCHAR(50) NOT NULL,
+  `features` TEXT NOT NULL,
+  `urutan` INT NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `slug_unique` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Seed data paket awal (prefix ! menandakan fitur tidak termasuk / disabled)
+INSERT INTO `paket` (`nama`, `slug`, `subtitle`, `price`, `period`, `features`, `urutan`) VALUES
+('SEWA PER JAM', 'jam', 'Cocok untuk main santai atau trial', 50000, 'Per Jam', 'Akses Lapangan\nMinimal Sewa 3 Jam\n!Diskon Member\n!Prioritas Booking\n!Bonus Event Internal', 1),
+('SEWA BULANAN', 'bulanan', 'Hemat untuk pemain rutin', 350000, 'Per Bulan', 'Akses Lapangan\n4x Main (3 jam/sesi)\nDiskon Member 15%\nPrioritas Booking\n!Bonus Event Internal', 2),
+('SEWA TAHUNAN', 'tahunan', 'Pilihan maksimal untuk klub aktif', 3600000, 'Per Tahun', 'Akses Lapangan\n60x Main (3 jam/sesi)\nDiskon Member 25%\nPrioritas Booking\nBonus Event Internal', 3);
+
+-- Tabel Kontak
+CREATE TABLE IF NOT EXISTS `kontak` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `whatsapp` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `instagram` VARCHAR(255) NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data awal kontak
+INSERT INTO `kontak` (`whatsapp`, `email`, `instagram`) VALUES 
+('+62 812-3456-7890', 'info@nts-arena.com', 'https://instagram.com/ntsarena');
+
+-- Tabel Footer
+CREATE TABLE IF NOT EXISTS `footer` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `address` TEXT NOT NULL,
+  `phone` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `instagram` VARCHAR(255),
+  `facebook` VARCHAR(255),
+  `twitter` VARCHAR(255),
+  `linkedin` VARCHAR(255),
+  `hours_weekday` VARCHAR(100) NOT NULL,
+  `hours_weekend` VARCHAR(100) NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data awal footer
+INSERT INTO `footer` (`address`, `phone`, `email`, `instagram`, `facebook`, `twitter`, `linkedin`, `hours_weekday`, `hours_weekend`) VALUES 
+('Jl. Rejang Raya Gg Barokah, Bukit Pinang, Kec. Samarinda Ulu, Kota Samarinda, Kalimantan Timur 75131', '+62 812-3456-7890', 'info@nts-arena.com', 'https://instagram.com/ntsarena', '#', '#', '#', 'Senin-Jumat: 8 Pagi - 11 Malam', 'Sabtu-Minggu: 8 Pagi - 11 Malam');

@@ -36,6 +36,36 @@ if ($res) {
     $res->free_result();
 }
 
+// Ambil heading hero dinamis
+$heroHeading = 'Raih Kemenangan di Setiap Pukulan!';
+$res = $conn->query("SELECT heading FROM hero ORDER BY id DESC LIMIT 1");
+if ($res && $row = $res->fetch_assoc()) { $heroHeading = $row['heading']; $res->free_result(); }
+
+// Ambil data about
+$aboutData = ['image_path' => 'assets/img/about.jpeg', 'paragraph_1' => '', 'paragraph_2' => '', 'paragraph_3' => ''];
+$res = $conn->query("SELECT * FROM about ORDER BY id DESC LIMIT 1");
+if ($res && $row = $res->fetch_assoc()) { $aboutData = $row; $res->free_result(); }
+
+// Ambil data kontak
+$kontakData = ['whatsapp' => '+62 812-3456-7890', 'email' => 'info@nts-arena.com', 'instagram' => 'https://instagram.com/ntsarena'];
+$res = $conn->query("SELECT * FROM kontak ORDER BY id DESC LIMIT 1");
+if ($res && $row = $res->fetch_assoc()) { $kontakData = $row; $res->free_result(); }
+
+// Ambil data footer
+$footerData = [
+    'address' => 'Jl. Rejang Raya Gg Barokah, Bukit Pinang, Kec. Samarinda Ulu, Kota Samarinda, Kalimantan Timur 75131',
+    'phone' => '+62 812-3456-7890',
+    'email' => 'info@nts-arena.com',
+    'instagram' => 'https://instagram.com/ntsarena',
+    'facebook' => '#',
+    'twitter' => '#',
+    'linkedin' => '#',
+    'hours_weekday' => 'Senin-Jumat: 8 Pagi - 11 Malam',
+    'hours_weekend' => 'Sabtu-Minggu: 8 Pagi - 11 Malam'
+];
+$res = $conn->query("SELECT * FROM footer ORDER BY id DESC LIMIT 1");
+if ($res && $row = $res->fetch_assoc()) { $footerData = $row; $res->free_result(); }
+
 // Ambil gambar hero (slider background)
 $heroImages = glob(__DIR__ . '/assets/hero/*.{jpg,jpeg,png,webp,gif,JPG,JPEG,PNG,WEBP,GIF}', GLOB_BRACE) ?: [];
 // Urutkan terbaru dulu
@@ -137,8 +167,7 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
             <div class="container">
                 <div class="row gy-4 justify-content-center align-items-center" style="min-height: calc(100vh - 80px);">
                     <div class="col-lg-8 d-flex flex-column justify-content-center text-center">
-                        <h1 style="font-size: 8rem;" class="hero-title" data-aos="fade-up">Raih Kemenangan di Setiap
-                            Pukulan!</h1>
+                        <h1 style="font-size: 8rem;" class="hero-title" data-aos="fade-up"><?= e($heroHeading) ?></h1>
                         <div class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
                             <a href="#reservasi" class="btn-get-started">Reservasi Sekarang</a>
                         </div>
@@ -160,31 +189,14 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
                 <div class="row gy-4">
                     <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-                        <img src="assets/img/about.jpeg" class="img-fluid mb-4" alt="">
+                        <img src="<?= e($aboutData['image_path']) ?>" class="img-fluid mb-4" alt="">
                     </div>
                     <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="250">
                         <div class="content ps-0 ps-lg-5" style="width:100%; text-align:left; line-height:1.8;">
                             <div style="margin:auto 0;">
-                                <p class="fst-italic">
-                                    <strong>@nt's Arena</strong> berdiri pada Juli 2025 dan dikelola
-                                    oleh <strong>Ariyanto</strong>. Kami memiliki tujuan untuk mendorong
-                                    semangat olahraga dan membangun komunitas bulutangkis yang aktif.
-                                    Kebersihan terjamin dan fasilitas kami lengkap untuk kenyamanan
-                                    bermain Anda.
-                                </p>
-                                <p class="fst-italic">
-                                    Dengan dukungan fasilitas lengkap
-                                    seperti lapangan berkualitas, area istirahat yang nyaman, serta layanan
-                                    pemesanan jadwal yang mudah, kami siap menjadi tempat terbaik bagi Anda
-                                    untuk berlatih, bersaing, dan menikmati permainan bulutangkis setiap hari.
-                                </p>
-                                <p class="fst-italic">
-                                    Sebagai arena yang terus berkembang, @nt's Arena juga berkomitmen untuk memberikan
-                                    pengalaman terbaik bagi setiap pengunjung melalui pelayanan ramah dan sistem
-                                    pengelolaan yang profesional. Kami selalu terbuka untuk berbagai kegiatan seperti
-                                    latihan rutin, sparring, hingga turnamen internal yang dapat meningkatkan kemampuan
-                                    sekaligus mempererat hubungan antar pemain.
-                                </p>
+                                <p class="fst-italic"><?= $aboutData['paragraph_1'] ?></p>
+                                <p class="fst-italic"><?= $aboutData['paragraph_2'] ?></p>
+                                <p class="fst-italic"><?= $aboutData['paragraph_3'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -453,92 +465,61 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
             <div class="container">
                 <div class="row gy-4">
-
-                    <!-- FREE/BASIC PLAN -->
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="pricing-card pricing-free">
+                    <?php
+// Ambil paket harga
+$paketRows = [];
+$res = $conn->query("SELECT * FROM paket ORDER BY urutan ASC, id ASC");
+if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result(); }
+?>
+                    <?php if (!empty($paketRows)): ?>
+                    <?php foreach ($paketRows as $i => $p): 
+    $delay = 100 + ($i*100);
+    $slug = strtolower(trim($p['slug']));
+    // Tentukan kelas card tambahan berdasar slug untuk kompatibilitas styling lama
+    $cardClass = 'pricing-card';
+    if ($slug === 'jam') $cardClass .= ' pricing-free';
+    elseif ($slug === 'bulanan') $cardClass .= ' pricing-enterprise';
+    elseif ($slug === 'tahunan') $cardClass .= ' pricing-annual';
+    else $cardClass .= ' pricing-custom';
+    $priceFmt = 'Rp ' . number_format((int)$p['price'],0,',','.');
+    $featuresLines = preg_split('/\n/', $p['features']);
+?>
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
+                        <div class="<?= e($cardClass) ?>">
                             <div class="pricing-header">
-                                <h3 class="pricing-title">SEWA PER JAM</h3>
-                                <p class="pricing-subtitle">Cocok untuk main santai atau trial</p>
+                                <h3 class="pricing-title"><?= e($p['nama']) ?></h3>
+                                <p class="pricing-subtitle"><?= e($p['subtitle']) ?></p>
                             </div>
                             <div class="pricing-price">
-                                <h2>Rp 50.000</h2>
-                                <span class="pricing-period">/Per Jam</span>
+                                <h2><?= e($priceFmt) ?></h2>
+                                <span class="pricing-period">/<?= e($p['period']) ?></span>
                             </div>
                             <div class="pricing-features">
                                 <h4>Yang Termasuk:</h4>
                                 <ul>
-                                    <li><i class="bi bi-check-circle-fill"></i> Akses Lapangan</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> Minimal Sewa 3 Jam</li>
-                                    <li class="disabled"><i class="bi bi-x-circle"></i> Diskon Member</li>
-                                    <li class="disabled"><i class="bi bi-x-circle"></i> Prioritas Booking</li>
-                                    <li class="disabled"><i class="bi bi-x-circle"></i> Bonus Event Internal</li>
+                                    <?php foreach ($featuresLines as $f): $f = trim($f); if ($f==='') continue; $disabled = str_starts_with($f,'!'); $label = $disabled?substr($f,1):$f; ?>
+                                    <li class="<?= $disabled ? 'disabled' : '' ?>">
+                                        <i class="bi bi-<?= $disabled ? 'x-circle' : 'check-circle-fill' ?>"></i>
+                                        <?= e($label) ?>
+                                    </li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                             <div class="pricing-action">
-                                <a href="#reservasi" class="btn-pricing btn-pricing-free">Pilih Paket</a>
+                                <a href="#reservasi"
+                                    class="btn-pricing <?= $slug === 'jam' ? 'btn-pricing-free' : ($slug === 'bulanan' ? 'btn-pricing-enterprise' : ($slug === 'tahunan' ? 'btn-pricing-annual' : 'btn-pricing-free')) ?>">Pilih
+                                    Paket</a>
                             </div>
                         </div>
                     </div>
-
-                    <!-- ENTERPRISE/PREMIUM PLAN -->
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="pricing-card pricing-enterprise">
-                            <div class="pricing-header">
-                                <h3 class="pricing-title">SEWA BULANAN</h3>
-                                <p class="pricing-subtitle">Hemat untuk pemain rutin</p>
-                            </div>
-                            <div class="pricing-price">
-                                <h2>Rp 350.000</h2>
-                                <span class="pricing-period">/Per Bulan</span>
-                            </div>
-                            <div class="pricing-features">
-                                <h4>Yang Termasuk:</h4>
-                                <ul>
-                                    <li><i class="bi bi-check-circle-fill"></i> Akses Lapangan</li>
-
-                                    <li><i class="bi bi-check-circle-fill"></i> 4x Main (3 jam/sesi)</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> Diskon Member 15%</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> Prioritas Booking</li>
-                                    <li class="disabled"><i class="bi bi-x-circle"></i> Bonus Event Internal</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-action">
-                                <a href="#reservasi" class="btn-pricing btn-pricing-enterprise">Pilih Paket</a>
-                            </div>
-                        </div>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                    <!-- Fallback statis jika belum ada data paket -->
+                    <div class="col-12 text-center">
+                        <p class="text-muted">Paket harga belum dikonfigurasi.</p>
                     </div>
-
-                    <!-- ANNUAL PLAN -->
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                        <div class="pricing-card pricing-annual">
-                            <div class="pricing-header">
-                                <h3 class="pricing-title">SEWA TAHUNAN</h3>
-                                <p class="pricing-subtitle">Pilihan maksimal untuk klub aktif</p>
-                            </div>
-                            <div class="pricing-price">
-                                <h2>Rp 3.600.000</h2>
-                                <span class="pricing-period">/Per Tahun</span>
-                            </div>
-                            <div class="pricing-features">
-                                <h4>Yang Termasuk:</h4>
-                                <ul>
-                                    <li><i class="bi bi-check-circle-fill"></i> Akses Lapangan</li>
-
-                                    <li><i class="bi bi-check-circle-fill"></i> 60x Main (3 jam/sesi)</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> Diskon Member 25%</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> Prioritas Booking</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> Bonus Event Internal</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-action">
-                                <a href="#reservasi" class="btn-pricing btn-pricing-annual">Pilih Paket</a>
-                            </div>
-                        </div>
-                    </div>
-
+                    <?php endif; ?>
                 </div>
-
             </div>
         </section>
 
@@ -961,9 +942,7 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
                     <i class="bi bi-geo-alt icon"></i>
                     <div class="address">
                         <h4>Alamat</h4>
-                        <p>Jl. Rejang Raya Gg Barokah, Bukit Pinang, Kec. Samarinda Ulu</p>
-                        <p>Kota Samarinda, Kalimantan Timur 75131</p>
-                        <p></p>
+                        <p><?= nl2br(e($footerData['address'])) ?></p>
                     </div>
 
                 </div>
@@ -973,8 +952,8 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
                     <div>
                         <h4>Kontak</h4>
                         <p>
-                            <strong>WhatsApp:</strong> <span>+62 812-3456-7890</span><br>
-                            <strong>Email:</strong> <span>info@nts-arena.com</span><br>
+                            <strong>Telepon:</strong> <span><?= e($footerData['phone']) ?></span><br>
+                            <strong>Email:</strong> <span><?= e($footerData['email']) ?></span><br>
                         </p>
                     </div>
                 </div>
@@ -984,7 +963,8 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
                     <div>
                         <h4>Jam Operasional</h4>
                         <p>
-                            <strong>Senin-Minggu:</strong> <span>8 Pagi - 11 Malam</span><br>
+                            <?= e($footerData['hours_weekday']) ?><br>
+                            <?= e($footerData['hours_weekend']) ?>
                         </p>
                     </div>
                 </div>
@@ -992,10 +972,10 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
                 <div class="col-lg-3 col-md-6">
                     <h4>Follow Kami</h4>
                     <div class="social-links d-flex">
-                        <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        <a href="<?= e($footerData['twitter']) ?>" <?= ($footerData['twitter'] !== '#') ? 'target="_blank"' : '' ?> class="twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="<?= e($footerData['facebook']) ?>" <?= ($footerData['facebook'] !== '#') ? 'target="_blank"' : '' ?> class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="<?= e($footerData['instagram']) ?>" <?= ($footerData['instagram'] !== '#') ? 'target="_blank"' : '' ?> class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="<?= e($footerData['linkedin']) ?>" <?= ($footerData['linkedin'] !== '#') ? 'target="_blank"' : '' ?> class="linkedin"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
 
