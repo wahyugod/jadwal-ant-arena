@@ -18,6 +18,40 @@
   --heading-font: "Amatic SC", sans-serif;
   --nav-font: "Inter", sans-serif;
 }
+#tentang {
+  background-image: url("../img/Sprinkle.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#fasilitas {
+  background-image: url("../img/Contour Line.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#harga {
+  background-image: url("../img/Hexagon.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#jadwal {
+  background-image: url("../img/Meteor.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#testimoni {
+  background-image: url("../img/Simple Shiny.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root {
@@ -52,6 +86,31 @@
   --heading-color: #ffffff;
   --surface-color: #37373f;
   --contrast-color: #ffffff;
+}
+
+.maroon-background {
+  --background-color: #2b0508;
+}
+
+.maroon-background {
+  background-color: #2b0508;
+}
+
+.maroon-background .section-title h2 {
+  color: #ffffff !important;
+}
+
+.maroon-background .section-title p {
+  color: #f8edeb !important;
+}
+
+.maroon-background .section-title span {
+  color: #ffffff !important;
+}
+
+.maroon-background .section-title .description-title {
+  color: #ffdfa6 !important; /* soft gold */
+  font-weight: 700; /* biar lebih standout */
 }
 
 /* Smooth scroll */
@@ -563,7 +622,7 @@ h6 {
 --------------------------------------------------------------*/
 .footer {
   --heading-font: var(--default-font);
-  color: var(--default-color);
+  color: #ffebd0;
   background-color: var(--background-color);
   font-size: 14px;
   padding: 40px 0;
@@ -581,6 +640,7 @@ h6 {
   font-size: 16px;
   font-weight: 700;
   margin-bottom: 15px;
+  color: #fff5e5;
 }
 
 .footer .address p {
@@ -596,14 +656,15 @@ h6 {
   border-radius: 50%;
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%);
   font-size: 16px;
-  color: color-mix(in srgb, var(--default-color), transparent 50%);
+  color: #ffebd0 !important;
+  border-color: #ffebd0 !important;
   margin-right: 10px;
   transition: 0.3s;
 }
 
 .footer .social-links a:hover {
-  color: var(--accent-color);
-  border-color: var(--accent-color);
+  color: #ffd37a !important;
+  border-color: #ffd37a !important;
 }
 
 .footer .copyright {
@@ -1632,6 +1693,24 @@ section,
 /*--------------------------------------------------------------
 # Chefs Section
 --------------------------------------------------------------*/
+/* Gradasi untuk Section FAQ */
+#faq {
+  background: linear-gradient(
+    to bottom in oklab,
+    #ffffff 0%,
+    #ffffff 30%,
+    /* putih jelas */ #f9e4e4 40%,
+    /* putih ke rosy muda */ #d7a3a7 55%,
+    /* rose dusty lembut */ #8b1318 72%,
+    /* medium maroon */ #3c090b 88%,
+    /* deep maroon */ #2b0508 100% /* maroon dark */
+  );
+  padding-top: 80px;
+  padding-bottom: 80px;
+  position: relative;
+  z-index: 1;
+}
+
 .faq .pertanyaan {
   background-color: var(--surface-color);
   box-shadow: 0px 0 30px rgba(0, 0, 0, 0.1);
@@ -1693,8 +1772,24 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Book A Table Section
+# reservasi Section
 --------------------------------------------------------------*/
+/* Soft reverse gradient untuk Reservasi Section */
+
+/* Gradient background untuk seluruh section Reservasi */
+#reservasi.book-a-table.section {
+  background: linear-gradient(
+    to bottom in oklab,
+    #2b0508 0%,
+    /* dark maroon */ #3c090b 20%,
+    /* sedikit lebih terang */ #8b1318 40%,
+    /* maroon medium */ #d7a3a7 65%,
+    /* dusty rose */ #f9e4e4 80%,
+    /* rose putih */ #ffffff 100% /* putih penuh */
+  );
+  padding: 80px 0;
+}
+
 .book-a-table .reservation-img {
   min-height: 560px;
   background-size: cover;
@@ -1706,7 +1801,7 @@ section,
 }
 
 .book-a-table .reservation-form-bg {
-  background: color-mix(in srgb, var(--default-color), transparent 97%);
+  background: #ffffff !important; /* putih solid */
 }
 
 .book-a-table .php-email-form {
@@ -1729,13 +1824,9 @@ section,
   padding: 10px 15px;
   box-shadow: none;
   border-radius: 0;
-  color: var(--default-color);
-  background-color: color-mix(
-    in srgb,
-    var(--background-color),
-    transparent 20%
-  );
-  border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+  background-color: #ffffff !important; /* putih solid */
+  color: #222 !important; /* teks tetap gelap & terbaca */
+  border: 1px solid #ddd !important; /* border soft */
 }
 
 .book-a-table .php-email-form input[type="text"]:focus,
@@ -1744,7 +1835,7 @@ section,
 .book-a-table .php-email-form input[type="date"]:focus,
 .book-a-table .php-email-form input[type="time"]:focus,
 .book-a-table .php-email-form textarea:focus {
-  border-color: var(--accent-color);
+  border: 1px solid #ddd !important;
 }
 
 .book-a-table .php-email-form input[type="text"]::placeholder,
@@ -1760,7 +1851,7 @@ section,
   color: var(--contrast-color);
   background: var(--accent-color);
   border: 0;
-  padding: 14px 60px;
+  padding: 14px 163px;
   transition: 0.4s;
   border-radius: 4px;
 }
@@ -1788,7 +1879,7 @@ section,
 }
 
 .gallery .swiper-pagination .swiper-pagination-bullet {
-  background-color: color-mix(in srgb, var(--default-color), transparent 85%);
+  background-color: #ffdfa6;
   border: 0;
   width: 12px;
   height: 12px;
@@ -2506,4 +2597,8 @@ section,
     font-size: 12px;
     padding: 10px 15px;
   }
+}
+
+.form-select {
+  border-radius: 0;
 }

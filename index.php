@@ -182,7 +182,7 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Tentang<br></h2>
-                <p><span>Pelajari Lebih</span> <span class="description-title">Tentang Kami</span></p>
+                <p><span>Pelajari Lebih Lanjut</span> <span class="description-title">Tentang Kami</span></p>
             </div><!-- End Section Title -->
 
             <div class="container">
@@ -205,7 +205,13 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
         </section><!-- /About Section -->
 
         <!-- Why Us Section -->
-        <section id="why-us" class="why-us section light-background">
+        <section id="why-us" class="why-us section maroon-background" style="
+            background-image: url('assets/img/mesh.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        ">
+            ">
 
             <div class="container">
 
@@ -388,7 +394,12 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
         </section><!-- /Events Section -->
 
         <!-- Galeri Section -->
-        <section id="galeri" class="gallery section light-background">
+        <section id="galeri" class="gallery section maroon-background" style="
+                background-image: url('assets/img/mesh.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            ">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -524,10 +535,14 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
         </section>
 
         <!-- ===== JADWAL SECTION ===== -->
-        <section id="jadwal" class="jadwal-section section light-background">
+        <section id="jadwal" class="jadwal-section section light-background position-relative">
+
+            <img src="assets/img/schedule.png" class="position-absolute top-0 start-0"
+                style="left: 25%; width: 220px; opacity: 0.8; z-index: 0;">
+
 
             <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
+            <div class="container section-title position-relative" data-aos="fade-up">
                 <h2>Jadwal</h2>
                 <p><span>Cek</span> <span class="description-title">Jadwal Operasional</span></p>
             </div><!-- End Section Title -->
@@ -573,7 +588,11 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
         </section>
 
         <!-- Testimonial Section -->
-        <section id="testimoni" class="testimonials section">
+        <section id="testimoni" class="testimonials section position-relative">
+
+            <img src="assets/img/ilust.png" class="position-absolute end-0 bottom-0 me-3 mb-3 d-none d-md-block"
+                style="width: 260px;">
+
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -704,7 +723,7 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
         </section><!-- /FAQ Section -->
 
         <!-- Reservasi Section -->
-        <section id="reservasi" class="book-a-table section">
+        <section id="reservasi" class="book-a-table section maroon-background">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -868,7 +887,7 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
         </script>
 
         <!-- Kontak Section -->
-        <section id="kontak" class="contact section light-background">
+        <section id="kontak" class="contact section">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -934,7 +953,7 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
     </main>
 
     <!-- footer -->
-    <footer id="footer" class="footer dark-background">
+    <footer id="footer" class="footer maroon-background">
 
         <div class="container">
             <div class="row gy-3">
@@ -972,10 +991,18 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
                 <div class="col-lg-3 col-md-6">
                     <h4>Follow Kami</h4>
                     <div class="social-links d-flex">
-                        <a href="<?= e($footerData['twitter']) ?>" <?= ($footerData['twitter'] !== '#') ? 'target="_blank"' : '' ?> class="twitter"><i class="bi bi-twitter-x"></i></a>
-                        <a href="<?= e($footerData['facebook']) ?>" <?= ($footerData['facebook'] !== '#') ? 'target="_blank"' : '' ?> class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="<?= e($footerData['instagram']) ?>" <?= ($footerData['instagram'] !== '#') ? 'target="_blank"' : '' ?> class="instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="<?= e($footerData['linkedin']) ?>" <?= ($footerData['linkedin'] !== '#') ? 'target="_blank"' : '' ?> class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        <a href="<?= e($footerData['twitter']) ?>"
+                            <?= ($footerData['twitter'] !== '#') ? 'target="_blank"' : '' ?> class="twitter"><i
+                                class="bi bi-twitter-x"></i></a>
+                        <a href="<?= e($footerData['facebook']) ?>"
+                            <?= ($footerData['facebook'] !== '#') ? 'target="_blank"' : '' ?> class="facebook"><i
+                                class="bi bi-facebook"></i></a>
+                        <a href="<?= e($footerData['instagram']) ?>"
+                            <?= ($footerData['instagram'] !== '#') ? 'target="_blank"' : '' ?> class="instagram"><i
+                                class="bi bi-instagram"></i></a>
+                        <a href="<?= e($footerData['linkedin']) ?>"
+                            <?= ($footerData['linkedin'] !== '#') ? 'target="_blank"' : '' ?> class="linkedin"><i
+                                class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
 

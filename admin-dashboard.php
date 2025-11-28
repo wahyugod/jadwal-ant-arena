@@ -87,7 +87,7 @@ $result = $conn->query($sql);
 
             <div class="nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle">
-                    <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                    <div style="display: flex; align-items: center; flex: 1;">
                         <i class="bi bi-gear"></i>
                         <span>Pengaturan Web</span>
                     </div>
