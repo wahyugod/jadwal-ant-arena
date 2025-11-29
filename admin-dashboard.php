@@ -472,7 +472,7 @@ $result = $conn->query($sql);
                 </div>
                 <div class="modal-footer">
                     <div class="d-flex gap-2 w-100">
-                        <button type="button" class="btn btn-secondary flex-fill" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-danger flex-fill" data-bs-dismiss="modal">
                             <i class="bi bi-x-circle"></i> Batal
                         </button>
                         <button type="button" class="btn btn-success flex-fill" id="setAvailableBtn">

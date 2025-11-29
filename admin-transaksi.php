@@ -179,7 +179,7 @@ include 'header.php';
                             <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-funnel"></i> Terapkan Filter
                             </button>
-                            <a href="admin-transaksi.php" class="btn btn-secondary">
+                            <a href="admin-transaksi.php" class="btn btn-danger">
                                 <i class="bi bi-x-circle"></i> Reset Filter
                             </a>
                         </div>
