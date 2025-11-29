@@ -842,24 +842,36 @@ $result = $conn->query($sql);
             canvas.style.display = '';
 
             chartTransaksi = new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: labels,
                     datasets: [{
                             label: 'Pemasukan',
                             data: pemasukan,
-                            backgroundColor: 'rgba(67, 24, 255, 0.8)',
                             borderColor: 'rgb(67, 24, 255)',
-                            borderWidth: 2,
-                            borderRadius: 8
+                            backgroundColor: 'rgba(67, 24, 255, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: 'rgb(67, 24, 255)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
                         },
                         {
                             label: 'Pengeluaran',
                             data: pengeluaran,
-                            backgroundColor: 'rgba(255, 99, 71, 0.8)',
                             borderColor: 'rgb(255, 99, 71)',
-                            borderWidth: 2,
-                            borderRadius: 8
+                            backgroundColor: 'rgba(255, 99, 71, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: 'rgb(255, 99, 71)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
                         }
                     ]
                 },
