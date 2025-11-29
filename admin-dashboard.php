@@ -333,7 +333,7 @@ $result = $conn->query($sql);
                                 </div>
                             </div>
                             <div class="card-body">
-                                <canvas id="chartPerHari" height="80"></canvas>
+                                <canvas id="chartPerHari" height="139"></canvas>
                             </div>
                         </div>
                     </div>
