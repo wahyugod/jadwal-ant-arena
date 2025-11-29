@@ -17,6 +17,7 @@ document.querySelectorAll('.nav-dropdown-toggle').forEach(function(toggle) {
 });
     </script>
     <?php if (isset($extraScripts)) echo $extraScripts; ?>
+    <script src="assets/js/admin-crud.js"></script>
     </body>
 
     </html>

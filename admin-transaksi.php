@@ -415,3 +415,32 @@ include 'header.php';
             </div>
 <?php include 'footer.php'; ?>
 
+            <!-- Modal Konfirmasi Hapus -->
+            <div class="modal fade" id="modalConfirmDelete" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header" style="border-bottom: none;">
+                            <h5 class="modal-title" style="font-weight: 700; color: var(--text-primary);">
+                                <i class="bi bi-trash3 text-danger me-2"></i>Konfirmasi Hapus
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" style="color: var(--text-secondary);">
+                            Apakah Anda yakin ingin menghapus transaksi ini? Tindakan ini tidak dapat dibatalkan.
+                        </div>
+                        <div class="modal-footer" style="border-top: none;">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle me-1"></i>Batal
+                            </button>
+                            <form id="formDeleteTransaksi" action="admin-transaksi-actions.php" method="POST" class="d-inline">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" id="delete_id" value="">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash me-1"></i>Hapus
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+

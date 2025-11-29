@@ -32,7 +32,7 @@ if ($action === 'create') {
     }
 
     $stmt = $conn->prepare('INSERT INTO paket (nama, slug, subtitle, price, period, features, urutan) VALUES (?,?,?,?,?,?,?)');
-    $stmt->bind_param('ssssissi', $nama, $slug, $subtitle, $price, $period, $features, $urutan);
+    $stmt->bind_param('sssissi', $nama, $slug, $subtitle, $price, $period, $features, $urutan);
     if ($stmt->execute()) {
         setSuccess('Paket berhasil ditambahkan');
     } else {
@@ -59,7 +59,7 @@ if ($action === 'update') {
         exit;
     }
     $stmt = $conn->prepare('UPDATE paket SET nama=?, slug=?, subtitle=?, price=?, period=?, features=?, urutan=? WHERE id=?');
-    $stmt->bind_param('ssssissii', $nama, $slug, $subtitle, $price, $period, $features, $urutan, $id);
+    $stmt->bind_param('sssissii', $nama, $slug, $subtitle, $price, $period, $features, $urutan, $id);
     if ($stmt->execute()) {
         setSuccess('Paket berhasil diperbarui');
     } else {
