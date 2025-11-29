@@ -140,7 +140,7 @@ $pageBreadcrumb = 'Transaksi';
 include 'header.php';
 ?>
 <div class="row mb-4">
-                <div class="col-12">
+                <div class="col-12 d-flex justify-content-end">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambah">
                         <i class="bi bi-plus-circle"></i> Tambah Transaksi
                     </button>
@@ -175,7 +175,7 @@ include 'header.php';
                                 </option>
                             </select>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-funnel"></i> Terapkan Filter
                             </button>
@@ -334,7 +334,7 @@ include 'header.php';
 
     <!-- Modal Tambah -->
     <div class="modal fade" id="modalTambah" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah Transaksi</h5>
@@ -377,7 +377,7 @@ include 'header.php';
 
     <!-- Modal Edit -->
     <div class="modal fade" id="modalEdit" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Transaksi</h5>

@@ -105,7 +105,7 @@ include 'header.php';
                         <div>
                             <input class="form-control" type="file" name="photos[]" accept="image/*" multiple required>
                         </div>
-                        <div>
+                        <div class="d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit"><i class="bi bi-cloud-arrow-up"></i>
                                 Unggah</button>
                         </div>

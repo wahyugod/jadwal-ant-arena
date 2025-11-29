@@ -46,9 +46,11 @@ include 'header.php';
                         <textarea class="form-control" id="paragraph_3" name="paragraph_3" rows="4"
                             required><?php echo htmlspecialchars($paragraph3); ?></textarea>
                     </div>
+                    <div class="d-flex justify-content-end gap-2">
                     <button type="submit" name="action" value="update_text" class="btn btn-primary"><i
                             class="bi bi-save"></i> Simpan
                         Perubahan</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -68,8 +70,10 @@ include 'header.php';
                         <small class="text-muted">Format: JPG, PNG, GIF, WEBP. Maks 5MB per file. Dapat upload banyak
                             sekaligus.</small>
                     </div>
+                    <div class="d-flex justify-content-end gap-2">
                     <button type="submit" name="action" value="upload_images" class="btn btn-success"><i
                             class="bi bi-upload"></i> Upload Gambar</button>
+                    </div>
                 </form>
 
                 <div class="row g-3">

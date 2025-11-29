@@ -215,3 +215,5 @@ CREATE TABLE IF NOT EXISTS `footer` (
 -- Data awal footer
 INSERT INTO `footer` (`address`, `phone`, `email`, `instagram`, `facebook`, `twitter`, `linkedin`, `hours_weekday`, `hours_weekend`) VALUES 
 ('Jl. Rejang Raya Gg Barokah, Bukit Pinang, Kec. Samarinda Ulu, Kota Samarinda, Kalimantan Timur 75131', '+62 812-3456-7890', 'info@nts-arena.com', 'https://instagram.com/ntsarena', '#', '#', '#', 'Senin-Jumat: 8 Pagi - 11 Malam', 'Sabtu-Minggu: 8 Pagi - 11 Malam');
+
+ALTER TABLE footer DROP COLUMN address, DROP COLUMN phone, DROP COLUMN email, ADD COLUMN description TEXT AFTER id, ADD COLUMN copyright VARCHAR(255) AFTER description;

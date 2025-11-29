@@ -86,10 +86,10 @@ include 'header.php';
                         <input type="url" class="form-control" name="linkedin"
                             value="<?= htmlspecialchars($linkedin) ?>" placeholder="https://linkedin.com/company/name">
                     </div>
-                    <div class="d-flex gap-2 mt-4">
+                    <div class="d-flex gap-2 mt-4 justify-content-end">
                         <button type="submit" class="btn btn-primary px-4"><i class="bi bi-check-circle me-2"></i>Simpan
                             Perubahan</button>
-                        <a href="admin-dashboard.php" class="btn btn-outline-secondary px-4">Batal</a>
+                        <a href="admin-dashboard.php" class="btn btn-danger px-4">Batal</a>
                     </div>
                 </form>
             </div>

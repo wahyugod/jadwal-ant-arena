@@ -37,8 +37,10 @@ include 'header.php';
                                     <small class="text-muted">Pilih satu atau lebih gambar. Akan otomatis jadi slider di
                                         beranda. Format: JPG, PNG, GIF, WEBP. Maks 5MB per file.</small>
                                 </div>
+                                <div class="d-flex justify-content-end gap-2">
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Simpan
                                     Perubahan</button>
+                                </div>
                             </form>
                         </div>
                     </div>

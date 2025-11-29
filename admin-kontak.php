@@ -36,7 +36,9 @@ include 'header.php';
                 <input type="url" class="form-control" id="instagram" name="instagram" value="<?php echo htmlspecialchars($instagram); ?>" placeholder="https://instagram.com/ntsarena" required>
                 <small class="text-muted">URL lengkap profil Instagram</small>
               </div>
+              <div class="d-flex justify-content-end">
               <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Simpan Perubahan</button>
+              </div>
             </form>
           </div>
         </div>

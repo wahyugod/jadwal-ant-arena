@@ -12,7 +12,7 @@ $pageTitle = 'Kelola Paket';
 $pageBreadcrumb = 'Paket';
 include 'header.php';
 ?>
-<div class="mb-4">
+<div class="mb-4 d-flex justify-content-end">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambah"><i
                         class="bi bi-plus-circle"></i> Tambah Paket</button>
             </div>
@@ -86,7 +86,7 @@ include 'header.php';
 
     <!-- Modal Tambah -->
     <div class="modal fade" id="modalTambah" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah Paket</h5><button type="button" class="btn-close"
@@ -142,7 +142,7 @@ include 'header.php';
 
     <!-- Modal Edit -->
     <div class="modal fade" id="modalEdit" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Paket</h5><button type="button" class="btn-close"
