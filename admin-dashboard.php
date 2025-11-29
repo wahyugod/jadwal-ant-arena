@@ -454,13 +454,15 @@ $result = $conn->query($sql);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label"><strong>Jam:</strong></label>
-                        <p id="modalJam" class="text-muted"></p>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label"><strong>Hari:</strong></label>
-                        <p id="modalHari" class="text-muted text-capitalize"></p>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label"><strong>Jam:</strong></label>
+                            <p id="modalJam" class="text-muted mb-0"></p>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label"><strong>Hari:</strong></label>
+                            <p id="modalHari" class="text-muted text-capitalize mb-0"></p>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="teamNameInput" class="form-label">Nama Tim:</label>
