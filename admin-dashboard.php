@@ -415,7 +415,7 @@ $result = $conn->query($sql);
                                                 $raw = trim($row[$day]);
                                                 // Treat empty, dash or 'Tersedia' as empty/default and display 'Tersedia'
                                                 if ($raw === '' || $raw === '-' || strcasecmp($raw, 'Tersedia') === 0) {
-                                                    $display = '<span class="text-success">Tersedia</span>';
+                                                    $display = '<span class="text-danger">Tersedia</span>';
                                                     $dataValue = '';
                                                 } else {
                                                     $display = htmlspecialchars($raw);
@@ -1039,17 +1039,15 @@ $result = $conn->query($sql);
                     body: `id=${jadwalId}&day=${day}&value=Tersedia`
                 })
                 .then(response => response.json())
-                .then(data => {
+            .then(data => {
                     if (data.success) {
-                        currentCell.innerHTML = '<span class="text-success">Tersedia</span>';
-                        // keep dataset empty so modal will show empty input for adding a team
-                        currentCell.dataset.value = '';
-                        document.getElementById('teamNameInput').value = '';
+                    currentCell.innerHTML = '<span class="text-danger">Tersedia</span>';
+                    // keep dataset empty so modal will show empty input for adding a team
+                    currentCell.dataset.value = '';
+                    document.getElementById('teamNameInput').value = '';
 
-                        showModalAlert('Slot berhasil disediakan!', 'success');
-                        showToast('Slot berhasil disediakan', 'success');
-
-                        setTimeout(() => {
+                    showModalAlert('Slot berhasil disediakan!', 'success');
+                    showToast('Slot berhasil disediakan', 'success');                        setTimeout(() => {
                             modal.hide();
                             loadStatistics(); // Refresh stats
                         }, 700);
@@ -1128,17 +1126,15 @@ $result = $conn->query($sql);
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        showToast('Semua slot berhasil disediakan!', 'success');
+                if (data.success) {
+                    showToast('Semua slot berhasil disediakan!', 'success');
 
-                        // Update all cells in the table
-                        document.querySelectorAll('.team-cell').forEach(cell => {
-                            cell.innerHTML = '<span class="text-success">Tersedia</span>';
-                            // keep dataset.value empty so modal shows empty input for adding a team
-                            cell.dataset.value = '';
-                        });
-
-                        // Refresh statistics to reflect changes
+                    // Update all cells in the table
+                    document.querySelectorAll('.team-cell').forEach(cell => {
+                        cell.innerHTML = '<span class="text-danger">Tersedia</span>';
+                        // keep dataset.value empty so modal shows empty input for adding a team
+                        cell.dataset.value = '';
+                    });                        // Refresh statistics to reflect changes
                         loadStatistics();
                     } else {
                         showToast('Gagal: ' + (data.message || 'Unknown error'), 'danger');
@@ -1188,7 +1184,7 @@ $result = $conn->query($sql);
                             document.querySelectorAll(`.team-cell[data-day="${day}"]`)
                                 .forEach(cell => {
                                     cell.innerHTML =
-                                        '<span class="text-success">Tersedia</span>';
+                                        '<span class="text-danger">Tersedia</span>';
                                     cell.dataset.value = '';
                                 });
 
