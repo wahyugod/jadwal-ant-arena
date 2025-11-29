@@ -370,7 +370,7 @@ $result = $conn->query($sql);
                         <i class="bi bi-check-circle"></i> Sediakan Semua Slot
                     </button>
                     <div class="dropdown">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="setDayAvailableButton"
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="setDayAvailableButton"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-check-circle"></i> Sediakan Per Hari
                         </button>
