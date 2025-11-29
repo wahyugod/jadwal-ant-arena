@@ -196,56 +196,64 @@ $result = $conn->query($sql);
                 <div class="row">
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card stat-card primary">
-                            <div class="card-body">
-                                <div class="stat-icon">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-calendar3"></i>
                                 </div>
-                                <div class="stat-label">Total Jadwal</div>
-                                <div class="stat-value" id="stat-total-jadwal">-</div>
-                                <div class="stat-change">
-                                    <i class="bi bi-arrow-up"></i> +2.45%
+                                <div style="flex: 1;">
+                                    <div class="stat-label">Total Jadwal</div>
+                                    <div class="stat-value" id="stat-total-jadwal">-</div>
+                                    <div class="stat-change">
+                                        <i class="bi bi-arrow-up"></i> +2.45%
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card stat-card success">
-                            <div class="card-body">
-                                <div class="stat-icon">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-check-circle"></i>
                                 </div>
-                                <div class="stat-label">Slot Terisi</div>
-                                <div class="stat-value" id="stat-slot-terisi">-</div>
-                                <div class="stat-change">
-                                    <i class="bi bi-arrow-up"></i> +12.5%
+                                <div style="flex: 1;">
+                                    <div class="stat-label">Slot Terisi</div>
+                                    <div class="stat-value" id="stat-slot-terisi">-</div>
+                                    <div class="stat-change">
+                                        <i class="bi bi-arrow-up"></i> +12.5%
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card stat-card warning">
-                            <div class="card-body">
-                                <div class="stat-icon">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-inbox"></i>
                                 </div>
-                                <div class="stat-label">Slot Tersedia</div>
-                                <div class="stat-value" id="stat-slot-tersedia">-</div>
-                                <div class="stat-change negative">
-                                    <i class="bi bi-arrow-down"></i> -5.2%
+                                <div style="flex: 1;">
+                                    <div class="stat-label">Slot Tersedia</div>
+                                    <div class="stat-value" id="stat-slot-tersedia">-</div>
+                                    <div class="stat-change negative">
+                                        <i class="bi bi-arrow-down"></i> -5.2%
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card stat-card info">
-                            <div class="card-body">
-                                <div class="stat-icon">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-pie-chart"></i>
                                 </div>
-                                <div class="stat-label">Persentase Terisi</div>
-                                <div class="stat-value" id="stat-persentase">-</div>
-                                <div class="stat-change">
-                                    <i class="bi bi-arrow-up"></i> +8.3%
+                                <div style="flex: 1;">
+                                    <div class="stat-label">Persentase Terisi</div>
+                                    <div class="stat-value" id="stat-persentase">-</div>
+                                    <div class="stat-change">
+                                        <i class="bi bi-arrow-up"></i> +8.3%
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -257,34 +265,40 @@ $result = $conn->query($sql);
                 <div class="row">
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card stat-card success">
-                            <div class="card-body">
-                                <div class="stat-icon">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-arrow-down-circle"></i>
                                 </div>
-                                <div class="stat-label">Total Pemasukan</div>
-                                <div class="stat-value" id="stat-pemasukan">-</div>
+                                <div style="flex: 1;">
+                                    <div class="stat-label">Total Pemasukan</div>
+                                    <div class="stat-value" id="stat-pemasukan">-</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card stat-card warning">
-                            <div class="card-body">
-                                <div class="stat-icon">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-arrow-up-circle"></i>
                                 </div>
-                                <div class="stat-label">Total Pengeluaran</div>
-                                <div class="stat-value" id="stat-pengeluaran">-</div>
+                                <div style="flex: 1;">
+                                    <div class="stat-label">Total Pengeluaran</div>
+                                    <div class="stat-value" id="stat-pengeluaran">-</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card stat-card info">
-                            <div class="card-body">
-                                <div class="stat-icon">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-wallet2"></i>
                                 </div>
-                                <div class="stat-label">Saldo</div>
-                                <div class="stat-value" id="stat-saldo">-</div>
+                                <div style="flex: 1;">
+                                    <div class="stat-label">Saldo</div>
+                                    <div class="stat-value" id="stat-saldo">-</div>
+                                </div>
                             </div>
                         </div>
                     </div>

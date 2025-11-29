@@ -175,7 +175,7 @@ include 'header.php';
                                 </option>
                             </select>
                         </div>
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 d-flex gap-2 justify-content-end">
                             <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-funnel"></i> Terapkan Filter
                             </button>
