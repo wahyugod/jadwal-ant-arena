@@ -469,14 +469,14 @@ $result = $conn->query($sql);
                     <div id="modalAlert" class="alert" role="alert" style="display: none;"></div>
                 </div>
                 <div class="modal-footer">
-                    <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <div class="d-flex gap-2 w-100">
+                        <button type="button" class="btn btn-secondary flex-fill" data-bs-dismiss="modal">
                             <i class="bi bi-x-circle"></i> Batal
                         </button>
-                        <button type="button" class="btn btn-success" id="setAvailableBtn">
+                        <button type="button" class="btn btn-success flex-fill" id="setAvailableBtn">
                             <i class="bi bi-check-circle"></i> Sediakan
                         </button>
-                        <button type="button" class="btn btn-primary" id="saveTeamBtn">
+                        <button type="button" class="btn btn-primary flex-fill" id="saveTeamBtn">
                             <i class="bi bi-save"></i> Simpan
                         </button>
                     </div>
