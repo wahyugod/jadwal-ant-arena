@@ -6,10 +6,51 @@ $conn = getConnection();
 
 // Filter status jika ada
 $status_filter = $_GET['status'] ?? 'all';
-$where_clause = $status_filter != 'all' ? "WHERE status = '" . $conn->real_escape_string($status_filter) . "'" : "";
+$search = $_GET['search'] ?? '';
+$sort = $_GET['sort'] ?? 'created_at_DESC';
 
-// Ambil semua reservasi
-$sql = "SELECT * FROM reservasi {$where_clause} ORDER BY created_at DESC";
+$where_clauses = [];
+
+// Status filter
+if ($status_filter != 'all') {
+    $where_clauses[] = "status = '" . $conn->real_escape_string($status_filter) . "'";
+}
+
+// Search filter (cari di nama_tim, email, no_telepon)
+if (!empty($search)) {
+    $search_escaped = $conn->real_escape_string($search);
+    $where_clauses[] = "(nama_tim LIKE '%{$search_escaped}%' OR email LIKE '%{$search_escaped}%' OR no_telepon LIKE '%{$search_escaped}%')";
+}
+
+$where_clause = !empty($where_clauses) ? "WHERE " . implode(" AND ", $where_clauses) : "";
+
+// Sorting
+$sort_options = [
+    'id|DESC' => 'Terbaru',
+    'id|ASC' => 'Terlama',
+    'nama_tim|ASC' => 'Nama Tim (A-Z)',
+    'nama_tim|DESC' => 'Nama Tim (Z-A)',
+    'tanggal_mulai|ASC' => 'Tanggal Mulai (Awal)',
+    'tanggal_mulai|DESC' => 'Tanggal Mulai (Akhir)'
+];
+
+// Parse sort parameter dengan delimiter pipe (|) untuk menghindari konflik dengan underscore di nama kolom
+$sort_parts = explode('|', $sort);
+$sort_column = $sort_parts[0] ?? 'id';
+$sort_direction = $sort_parts[1] ?? 'DESC';
+
+// Whitelist untuk kolom yang diizinkan
+$allowed_columns = ['id', 'nama_tim', 'tanggal_mulai', 'status'];
+if (!in_array($sort_column, $allowed_columns)) {
+    $sort_column = 'id';
+}
+
+// Validasi sort direction
+if (!in_array($sort_direction, ['ASC', 'DESC'])) {
+    $sort_direction = 'DESC';
+}
+
+$sql = "SELECT * FROM reservasi {$where_clause} ORDER BY {$sort_column} {$sort_direction}";
 $result = $conn->query($sql);
 
 $pageTitle = 'Kelola Reservasi';
@@ -21,19 +62,47 @@ include 'header.php';
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form method="get" class="d-flex gap-3 align-items-center">
-                                <label for="status" class="form-label mb-0">Filter Status:</label>
-                                <select name="status" id="status" class="form-select" style="width: 200px;"
-                                    onchange="this.form.submit()">
-                                    <option value="all" <?php echo $status_filter == 'all' ? 'selected' : ''; ?>>Semua
-                                        Status</option>
-                                    <option value="pending"
-                                        <?php echo $status_filter == 'pending' ? 'selected' : ''; ?>>Pending</option>
-                                    <option value="approved"
-                                        <?php echo $status_filter == 'approved' ? 'selected' : ''; ?>>Disetujui</option>
-                                    <option value="rejected"
-                                        <?php echo $status_filter == 'rejected' ? 'selected' : ''; ?>>Ditolak</option>
-                                </select>
+                            <form method="get" class="row g-3 align-items-end">
+                                <!-- Search Input -->
+                                <div class="col-md-4">
+                                    <label for="search" class="form-label">Cari:</label>
+                                    <input type="text" name="search" id="search" class="form-control" 
+                                        placeholder="Cari nama tim, email, telepon..." 
+                                        value="<?php echo htmlspecialchars($search); ?>">
+                                </div>
+
+                                <!-- Status Filter -->
+                                <div class="col-md-3">
+                                    <label for="status" class="form-label">Filter Status:</label>
+                                    <select name="status" id="status" class="form-select">
+                                        <option value="all" <?php echo $status_filter == 'all' ? 'selected' : ''; ?>>Semua Status</option>
+                                        <option value="pending" <?php echo $status_filter == 'pending' ? 'selected' : ''; ?>>Pending</option>
+                                        <option value="approved" <?php echo $status_filter == 'approved' ? 'selected' : ''; ?>>Disetujui</option>
+                                        <option value="rejected" <?php echo $status_filter == 'rejected' ? 'selected' : ''; ?>>Ditolak</option>
+                                    </select>
+                                </div>
+
+                                <!-- Sorting -->
+                                <div class="col-md-3">
+                                    <label for="sort" class="form-label">Sortir:</label>
+                                    <select name="sort" id="sort" class="form-select">
+                                        <?php foreach ($sort_options as $key => $label): ?>
+                                            <option value="<?php echo htmlspecialchars($key); ?>" <?php echo $sort == $key ? 'selected' : ''; ?>>
+                                                <?php echo htmlspecialchars($label); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="col-md-2 d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary flex-fill">
+                                        <i class="bi bi-search"></i> Cari
+                                    </button>
+                                    <a href="admin-reservasi.php" class="btn btn-danger flex-fill">
+                                        <i class="bi bi-arrow-clockwise"></i> Reset
+                                    </a>
+                                </div>
                             </form>
                         </div>
                     </div>
