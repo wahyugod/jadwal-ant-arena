@@ -10,86 +10,127 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$paragraph1 = trim($_POST['paragraph_1'] ?? '');
-$paragraph2 = trim($_POST['paragraph_2'] ?? '');
-$paragraph3 = trim($_POST['paragraph_3'] ?? '');
+$action = $_POST['action'] ?? '';
 
-if ($paragraph1 === '' || $paragraph2 === '' || $paragraph3 === '') {
-    setError('Semua paragraf wajib diisi');
+// Handle upload gambar slider
+if ($action === 'upload_images') {
+    if (empty($_FILES['images']['name'][0])) {
+        setError('Tidak ada gambar yang dipilih');
+        header('Location: admin-tentang.php');
+        exit;
+    }
+
+    $targetDir = __DIR__ . '/assets/tentang/';
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0777, true);
+    }
+
+    $uploaded = 0;
+    $errors = [];
+    $allowed = ['jpg','jpeg','png','gif','webp'];
+
+    foreach ($_FILES['images']['name'] as $key => $name) {
+        if ($_FILES['images']['error'][$key] !== UPLOAD_ERR_OK) {
+            continue;
+        }
+
+        $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+        if (!in_array($ext, $allowed)) {
+            $errors[] = "$name - Format tidak valid";
+            continue;
+        }
+
+        if ($_FILES['images']['size'][$key] > 5 * 1024 * 1024) {
+            $errors[] = "$name - Ukuran melebihi 5MB";
+            continue;
+        }
+
+        $newName = 'tentang_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+        $targetFile = $targetDir . $newName;
+
+        if (move_uploaded_file($_FILES['images']['tmp_name'][$key], $targetFile)) {
+            $uploaded++;
+        } else {
+            $errors[] = "$name - Gagal upload";
+        }
+    }
+
+    if ($uploaded > 0) {
+        setSuccess("$uploaded gambar berhasil diupload" . (!empty($errors) ? '. Beberapa gagal: ' . implode(', ', $errors) : ''));
+    } else {
+        setError('Semua gambar gagal diupload: ' . implode(', ', $errors));
+    }
+
     header('Location: admin-tentang.php');
     exit;
 }
 
-$imagePath = null;
-$uploadedNew = false;
-
-// Handle upload jika ada file baru
-if (!empty($_FILES['image']['name'])) {
-    $file = $_FILES['image'];
-    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-    $allowed = ['jpg','jpeg','png','gif','webp'];
-    if (!in_array($ext, $allowed)) {
-        setError('Format gambar tidak valid (jpg, jpeg, png, gif, webp)');
+// Handle delete gambar
+if ($action === 'delete_image') {
+    $filename = $_POST['filename'] ?? '';
+    if ($filename === '') {
+        setError('Nama file tidak valid');
         header('Location: admin-tentang.php');
         exit;
     }
-    if ($file['size'] > 5 * 1024 * 1024) { // 5MB
-        setError('Ukuran gambar maksimal 5MB');
-        header('Location: admin-tentang.php');
-        exit;
-    }
-    $targetDir = 'assets/img/';
-    if (!is_dir($targetDir)) {
-        mkdir($targetDir, 0777, true);
-    }
-    $newName = 'about_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-    $targetFile = $targetDir . $newName;
-    if (!move_uploaded_file($file['tmp_name'], $targetFile)) {
-        setError('Gagal mengupload gambar');
-        header('Location: admin-tentang.php');
-        exit;
-    }
-    $imagePath = $targetFile;
-    $uploadedNew = true;
-}
 
-// Ambil existing record (jika ada)
-$existing = null;
-$res = $conn->query('SELECT * FROM about ORDER BY id ASC LIMIT 1');
-if ($res) { $existing = $res->fetch_assoc(); $res->free_result(); }
-
-if ($existing) {
-    // Jika ada gambar baru dan lama berbeda -> hapus lama
-    if ($uploadedNew && !empty($existing['image_path']) && strpos($existing['image_path'], 'assets/img/') === 0) {
-        $oldFile = __DIR__ . '/' . $existing['image_path'];
-        if (is_file($oldFile) && basename($oldFile) !== 'about.jpeg') { // jangan hapus default
-            @unlink($oldFile);
+    $targetFile = __DIR__ . '/assets/tentang/' . basename($filename);
+    if (is_file($targetFile)) {
+        if (unlink($targetFile)) {
+            setSuccess('Gambar berhasil dihapus');
+        } else {
+            setError('Gagal menghapus gambar');
         }
-    }
-    if ($imagePath === null) {
-        $imagePath = $existing['image_path'];
-    }
-    $stmt = $conn->prepare('UPDATE about SET image_path = ?, paragraph_1 = ?, paragraph_2 = ?, paragraph_3 = ? WHERE id = ?');
-    $stmt->bind_param('ssssi', $imagePath, $paragraph1, $paragraph2, $paragraph3, $existing['id']);
-    if ($stmt->execute()) {
-        setSuccess('Tentang berhasil diperbarui');
     } else {
-        setError('Gagal memperbarui tentang: ' . $conn->error);
+        setError('File tidak ditemukan');
     }
-    $stmt->close();
-} else {
-    if ($imagePath === null) {
-        $imagePath = 'assets/img/about.jpeg';
-    }
-    $stmt = $conn->prepare('INSERT INTO about (image_path, paragraph_1, paragraph_2, paragraph_3) VALUES (?, ?, ?, ?)');
-    $stmt->bind_param('ssss', $imagePath, $paragraph1, $paragraph2, $paragraph3);
-    if ($stmt->execute()) {
-        setSuccess('Tentang berhasil dibuat');
-    } else {
-        setError('Gagal membuat tentang: ' . $conn->error);
-    }
-    $stmt->close();
+
+    header('Location: admin-tentang.php');
+    exit;
 }
 
+// Handle update text
+if ($action === 'update_text') {
+    $paragraph1 = trim($_POST['paragraph_1'] ?? '');
+    $paragraph2 = trim($_POST['paragraph_2'] ?? '');
+    $paragraph3 = trim($_POST['paragraph_3'] ?? '');
+
+    if ($paragraph1 === '' || $paragraph2 === '' || $paragraph3 === '') {
+        setError('Semua paragraf wajib diisi');
+        header('Location: admin-tentang.php');
+        exit;
+    }
+
+    // Ambil existing record (jika ada)
+    $existing = null;
+    $res = $conn->query('SELECT * FROM about ORDER BY id ASC LIMIT 1');
+    if ($res) { $existing = $res->fetch_assoc(); $res->free_result(); }
+
+    if ($existing) {
+        $stmt = $conn->prepare('UPDATE about SET paragraph_1 = ?, paragraph_2 = ?, paragraph_3 = ? WHERE id = ?');
+        $stmt->bind_param('sssi', $paragraph1, $paragraph2, $paragraph3, $existing['id']);
+        if ($stmt->execute()) {
+            setSuccess('Teks tentang berhasil diperbarui');
+        } else {
+            setError('Gagal memperbarui teks: ' . $conn->error);
+        }
+        $stmt->close();
+    } else {
+        $imagePath = 'assets/img/about.jpeg';
+        $stmt = $conn->prepare('INSERT INTO about (image_path, paragraph_1, paragraph_2, paragraph_3) VALUES (?, ?, ?, ?)');
+        $stmt->bind_param('ssss', $imagePath, $paragraph1, $paragraph2, $paragraph3);
+        if ($stmt->execute()) {
+            setSuccess('Teks tentang berhasil dibuat');
+        } else {
+            setError('Gagal membuat teks: ' . $conn->error);
+        }
+        $stmt->close();
+    }
+
+    header('Location: admin-tentang.php');
+    exit;
+}
+
+setError('Aksi tidak valid');
 header('Location: admin-tentang.php');
 exit;

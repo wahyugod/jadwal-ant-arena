@@ -133,10 +133,10 @@ $result = $conn->query($sql);
                 </div>
             </div>
 
-            <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 30px;">
+            <hr style="border-color: rgba(255,255,255,0.3); border-width: 3px; margin: 20px 30px;">
             <a class="nav-link" href="index.php" target="_blank">
                 <i class="bi bi-eye"></i>
-                <span>Halaman Publik</span>
+                <span>Lihat Website</span>
             </a>
             <a class="nav-link" href="admin-logout.php">
                 <i class="bi bi-box-arrow-right"></i>

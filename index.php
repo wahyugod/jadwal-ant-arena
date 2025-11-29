@@ -46,6 +46,16 @@ $aboutData = ['image_path' => 'assets/img/about.jpeg', 'paragraph_1' => '', 'par
 $res = $conn->query("SELECT * FROM about ORDER BY id DESC LIMIT 1");
 if ($res && $row = $res->fetch_assoc()) { $aboutData = $row; $res->free_result(); }
 
+// Ambil gambar tentang dari folder
+$tentangImages = glob(__DIR__ . '/assets/tentang/*.{jpg,jpeg,png,webp,gif,JPG,JPEG,PNG,WEBP,GIF}', GLOB_BRACE) ?: [];
+// Urutkan terbaru dulu
+usort($tentangImages, function($a,$b){ return filemtime($b) <=> filemtime($a); });
+// Siapkan rel path
+$tentangRel = [];
+foreach ($tentangImages as $h) { $tentangRel[] = 'assets/tentang/' . basename($h); }
+// Fallback jika kosong
+if (empty($tentangRel)) { $tentangRel[] = 'assets/img/about.jpeg'; }
+
 // Ambil data kontak
 $kontakData = ['whatsapp' => '+62 812-3456-7890', 'email' => 'info@nts-arena.com', 'instagram' => 'https://instagram.com/ntsarena'];
 $res = $conn->query("SELECT * FROM kontak ORDER BY id DESC LIMIT 1");
@@ -53,15 +63,14 @@ if ($res && $row = $res->fetch_assoc()) { $kontakData = $row; $res->free_result(
 
 // Ambil data footer
 $footerData = [
-    'address' => 'Jl. Rejang Raya Gg Barokah, Bukit Pinang, Kec. Samarinda Ulu, Kota Samarinda, Kalimantan Timur 75131',
-    'phone' => '+62 812-3456-7890',
-    'email' => 'info@nts-arena.com',
+    'description' => '@nt\'s Arena adalah lapangan bulutangkis terbaik di Samarinda dengan fasilitas modern dan pelayanan profesional.',
     'instagram' => 'https://instagram.com/ntsarena',
     'facebook' => '#',
     'twitter' => '#',
     'linkedin' => '#',
     'hours_weekday' => 'Senin-Jumat: 8 Pagi - 11 Malam',
-    'hours_weekend' => 'Sabtu-Minggu: 8 Pagi - 11 Malam'
+    'hours_weekend' => 'Sabtu-Minggu: 8 Pagi - 11 Malam',
+    'copyright' => '© 2025 @nt\'s Arena - Semua Hak Dilindungi'
 ];
 $res = $conn->query("SELECT * FROM footer ORDER BY id DESC LIMIT 1");
 if ($res && $row = $res->fetch_assoc()) { $footerData = $row; $res->free_result(); }
@@ -187,17 +196,44 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
             <div class="container">
 
-                <div class="row gy-4">
+                <div class="row gy-4 align-items-center">
                     <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-                        <img src="<?= e($aboutData['image_path']) ?>" class="img-fluid mb-4" alt="">
-                    </div>
-                    <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="250">
-                        <div class="content ps-0 ps-lg-5" style="width:100%; text-align:left; line-height:1.8;">
-                            <div style="margin:auto 0;">
-                                <p class="fst-italic"><?= $aboutData['paragraph_1'] ?></p>
-                                <p class="fst-italic"><?= $aboutData['paragraph_2'] ?></p>
-                                <p class="fst-italic"><?= $aboutData['paragraph_3'] ?></p>
+                        <div class="swiper init-swiper">
+                            <script type="application/json" class="swiper-config">
+                            {
+                                "loop": true,
+                                "speed": 600,
+                                "autoplay": {
+                                    "delay": 4000
+                                },
+                                "slidesPerView": 1,
+                                "pagination": {
+                                    "el": ".swiper-pagination",
+                                    "type": "bullets",
+                                    "clickable": true
+                                },
+                                "navigation": {
+                                    "nextEl": ".swiper-button-next",
+                                    "prevEl": ".swiper-button-prev"
+                                }
+                            }
+                            </script>
+                            <div class="swiper-wrapper">
+                                <?php foreach ($tentangRel as $img): ?>
+                                <div class="swiper-slide">
+                                    <img src="<?= e($img) ?>" class="img-fluid" alt="Tentang Kami"
+                                        style="width:100%; height:auto;">
+                                </div>
+                                <?php endforeach; ?>
                             </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5" data-aos="fade-up" data-aos-delay="250">
+                        <div class="content ps-0 ps-lg-5" style="text-align:left; line-height:1.8;">
+                            <p class="fst-italic"><?= $aboutData['paragraph_1'] ?></p>
+                            <p class="fst-italic"><?= $aboutData['paragraph_2'] ?></p>
+                            <p class="fst-italic"><?= $aboutData['paragraph_3'] ?></p>
                         </div>
                     </div>
                 </div>
@@ -254,14 +290,14 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
                                     <h4 class="fw-bold">Pemesanan Online Mudah</h4>
                                     <p>Booking jadwal bermain Anda secara online kapan pun dan di mana pun tanpa perlu
                                         antre.
-                                        Jadwalkan permainan dengan cepat dan praktis.</p>
+                                        Jadwalkan permainan dengan cepat dan praktis tanpa lama tanpa ribet.</p>
                                 </div>
                             </div><!-- End Icon Box -->
 
                             <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
                                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                                     <i class="bi bi-inboxes"></i>
-                                    <h4 class="fw-bold">Harga & Fasilitas</h4>
+                                    <h4 class="fw-bold">Harga & Fasilitas Lengkap</h4>
                                     <p>Nikmati tarif sewa bersahabat dengan fasilitas memadai seperti kantin, mushola,
                                         dan pencahayaan LED untuk mendukung kenyamanan Anda bermain.</p>
                                 </div>
@@ -283,41 +319,53 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
             <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
 
-                <div class="row gy-4 justify-content-center text-center">
+                <div class="row gy-4 justify-content-center">
 
                     <div class="col-lg-3 col-md-6">
-                        <div class="stats-item text-center w-100 h-100">
-                            <i class="bi bi-people stats-icon"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Klien</p>
+                        <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
+                            <i class="bi bi-people stats-icon me-3 d-flex align-items-center justify-content-center"
+                                style="font-size: 4rem; padding-top: 13px"></i>
+                            <div class="text-center d-flex flex-column justify-content-center">
+                                <span data-purecounter-start="0" data-purecounter-end="232"
+                                    data-purecounter-duration="1" class="purecounter d-block"></span>
+                                <p class="mb-0">Klien</p>
+                            </div>
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
-                        <div class="stats-item text-center w-100 h-100">
-                            <i class="bi bi-stopwatch stats-icon"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Total Jam Reservasi</p>
+                        <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
+                            <i class="bi bi-stopwatch stats-icon me-3 d-flex align-items-center justify-content-center"
+                                style="font-size: 4rem; padding-top: 13px"></i>
+                            <div class="text-center d-flex flex-column justify-content-center">
+                                <span data-purecounter-start="0" data-purecounter-end="1453"
+                                    data-purecounter-duration="1" class="purecounter d-block"></span>
+                                <p class="mb-0">Total Jam Reservasi</p>
+                            </div>
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
-                        <div class="stats-item text-center w-100 h-100">
-                            <i class="bi bi-person-badge stats-icon"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Pegawai</p>
+                        <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
+                            <i class="bi bi-person-badge stats-icon me-3 d-flex align-items-center justify-content-center"
+                                style="font-size: 4rem; padding-top: 13px"></i>
+                            <div class="text-center d-flex flex-column justify-content-center">
+                                <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
+                                    class="purecounter d-block"></span>
+                                <p class="mb-0">Pegawai</p>
+                            </div>
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
-                        <div class="stats-item text-center w-100 h-100">
-                            <i class="bi bi-columns stats-icon"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Lapangan</p>
+                        <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
+                            <i class="bi bi-columns stats-icon me-3 d-flex align-items-center justify-content-center"
+                                style="font-size: 4rem; padding-top: 13px"></i>
+                            <div class="text-center d-flex flex-column justify-content-center">
+                                <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1"
+                                    class="purecounter d-block"></span>
+                                <p class="mb-0">Lapangan</p>
+                            </div>
                         </div>
                     </div><!-- End Stats Item -->
 
@@ -517,8 +565,8 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
                                 </ul>
                             </div>
                             <div class="pricing-action">
-                                <a href="#reservasi"
-                                    class="btn-pricing <?= $slug === 'jam' ? 'btn-pricing-free' : ($slug === 'bulanan' ? 'btn-pricing-enterprise' : ($slug === 'tahunan' ? 'btn-pricing-annual' : 'btn-pricing-free')) ?>">Pilih
+                                <a href="#reservasi" data-paket="<?= e($slug) ?>"
+                                    class="btn-pricing btn-select-paket <?= $slug === 'jam' ? 'btn-pricing-free' : ($slug === 'bulanan' ? 'btn-pricing-enterprise' : ($slug === 'tahunan' ? 'btn-pricing-annual' : 'btn-pricing-free')) ?>">Pilih
                                     Paket</a>
                             </div>
                         </div>
@@ -571,7 +619,7 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
                           $val = trim((string)($row[$d] ?? ''));
                           $isAvail = ($val === '' || $val === '-' || strcasecmp($val, 'Tersedia') === 0);
                     ?>
-                                <td><?= $isAvail ? '<span class="text-success">Tersedia</span>' : e($val) ?></td>
+                                <td><?= $isAvail ? '<span class="text-danger fw-bold">Tersedia</span>' : e($val) ?></td>
                                 <?php endforeach; ?>
                             </tr>
                             <?php endforeach; ?>
@@ -798,8 +846,9 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
                             <!-- Tracking Reservasi -->
                             <div class="col-xl-5 p-4" style="background:#f8f9fa; border-left:1px solid #eee;">
                                 <div class="h-100 d-flex flex-column">
-                                    <h3 class="mb-3" style="font-weight:600;">Lacak Reservasi</h3>
-                                    <p class="small text-muted mb-3">Masukkan email atau nomor WA yang digunakan saat
+                                    <h3 class="mb-3" style="font-weight:600; font-size: 50px;">Lacak Reservasi</h3>
+                                    <p class="small text-muted mb-3" style="font-size:17px;">Masukkan email atau nomor
+                                        Whatsapp yang digunakan saat
                                         reservasi untuk melihat status.</p>
                                     <form id="trackForm" class="mb-3">
                                         <div class="input-group">
@@ -809,7 +858,8 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
                                         </div>
                                     </form>
                                     <div id="trackResult" class="flex-grow-1" style="overflow:auto; max-height:270px;">
-                                        <div class="text-muted small">Belum ada pencarian.</div>
+                                        <div class="text-muted small" style=" font-size:17px;">Belum ada pencarian.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -956,41 +1006,50 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
     <footer id="footer" class="footer maroon-background">
 
         <div class="container">
-            <div class="row gy-3">
-                <div class="col-lg-3 col-md-6 d-flex">
-                    <i class="bi bi-geo-alt icon"></i>
-                    <div class="address">
-                        <h4>Alamat</h4>
-                        <p><?= nl2br(e($footerData['address'])) ?></p>
-                    </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex">
-                    <i class="bi bi-telephone icon"></i>
-                    <div>
-                        <h4>Kontak</h4>
-                        <p>
-                            <strong>Telepon:</strong> <span><?= e($footerData['phone']) ?></span><br>
-                            <strong>Email:</strong> <span><?= e($footerData['email']) ?></span><br>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex">
-                    <i class="bi bi-clock icon"></i>
-                    <div>
-                        <h4>Jam Operasional</h4>
-                        <p>
-                            <?= e($footerData['hours_weekday']) ?><br>
-                            <?= e($footerData['hours_weekend']) ?>
-                        </p>
-                    </div>
-                </div>
-
+            <div class="row gy-4">
+                <!-- Deskripsi Singkat -->
                 <div class="col-lg-3 col-md-6">
-                    <h4>Follow Kami</h4>
-                    <div class="social-links d-flex">
+                    <h4 class="mb-3"><i class="bi bi-info-circle"></i> Deskripsi Singkat</h4>
+                    <p style="line-height: 1.8;"><?= e($footerData['description']) ?></p>
+                </div>
+
+                <!-- Menu Cepat -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="mb-3"><i class="bi bi-list-ul"></i> Menu Cepat</h4>
+                    <div class="row g-2">
+                        <div class="col-5">
+                            <ul class="list-unstyled footer-links">
+                                <li><a href="#beranda"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                                <li><a href="#tentang"><i class="bi bi-chevron-right"></i> Tentang</a></li>
+                                <li><a href="#fasilitas"><i class="bi bi-chevron-right"></i> Fasilitas</a></li>
+                                <li><a href="#harga"><i class="bi bi-chevron-right"></i> Paket</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-5">
+                            <ul class="list-unstyled footer-links">
+                                <li><a href="#jadwal"><i class="bi bi-chevron-right"></i> Jadwal</a></li>
+                                <li><a href="#reservasi"><i class="bi bi-chevron-right"></i> Reservasi</a></li>
+                                <li><a href="#kontak"><i class="bi bi-chevron-right"></i> Kontak</a></li>
+                                <li><a href="#galeri"><i class="bi bi-chevron-right"></i> Galeri</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jam Operasional -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="mb-3"><i class="bi bi-clock"></i> Jam Operasional</h4>
+                    <p style="line-height: 1.8;">
+                        <?= e($footerData['hours_weekday']) ?><br>
+                        <?= e($footerData['hours_weekend']) ?>
+                    </p>
+                </div>
+
+                <!-- Media Sosial -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="mb-3"><i class="bi bi-share"></i> Media Sosial</h4>
+                    <p class="mb-3">Ikuti kami di media sosial untuk update terbaru</p>
+                    <div class="social-links d-flex gap-2">
                         <a href="<?= e($footerData['twitter']) ?>"
                             <?= ($footerData['twitter'] !== '#') ? 'target="_blank"' : '' ?> class="twitter"><i
                                 class="bi bi-twitter-x"></i></a>
@@ -1010,15 +1069,7 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
         </div>
 
         <div class="container copyright text-center mt-4">
-            <p>© <span>2025</span> <strong class="px-1 sitename">@nt's Arena</strong> <span>Semua Hak Dilindungi</span>
-            </p>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you've purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
+            <p style="font-size:17px;"><?= e($footerData['copyright']) ?></p>
         </div>
 
     </footer>
@@ -1111,6 +1162,24 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
         });
 
         if (slides.length > 1) startTimer();
+    });
+
+    // Handle Pilih Paket - Auto fill form reservasi
+    document.querySelectorAll('.btn-select-paket').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const paketSlug = this.getAttribute('data-paket');
+            if (paketSlug) {
+                // Set timeout agar scroll ke reservasi selesai dulu
+                setTimeout(() => {
+                    const paketSelect = document.getElementById('paket');
+                    if (paketSelect) {
+                        paketSelect.value = paketSlug;
+                        // Trigger change event jika ada listener lain
+                        paketSelect.dispatchEvent(new Event('change'));
+                    }
+                }, 300);
+            }
+        });
     });
     </script>
 

@@ -11,12 +11,14 @@ $conn->close();
 $address = $footer['address'] ?? 'Jl. Rejang Raya Gg Barokah, Bukit Pinang, Kec. Samarinda Ulu, Kota Samarinda, Kalimantan Timur 75131';
 $phone = $footer['phone'] ?? '+62 812-3456-7890';
 $email = $footer['email'] ?? 'info@nts-arena.com';
+$description = $footer['description'] ?? '@nt\'s Arena adalah lapangan bulutangkis terbaik di Samarinda dengan fasilitas modern dan pelayanan profesional.';
 $instagram = $footer['instagram'] ?? 'https://instagram.com/ntsarena';
 $facebook = $footer['facebook'] ?? '#';
 $twitter = $footer['twitter'] ?? '#';
 $linkedin = $footer['linkedin'] ?? '#';
 $hours_weekday = $footer['hours_weekday'] ?? 'Senin-Jumat: 8 Pagi - 11 Malam';
 $hours_weekend = $footer['hours_weekend'] ?? 'Sabtu-Minggu: 8 Pagi - 11 Malam';
+$copyright = $footer['copyright'] ?? '© 2025 @nt\'s Arena - Semua Hak Dilindungi';
 
 $pageTitle = 'Kelola Footer';
 $pageBreadcrumb = 'Footer';
@@ -30,25 +32,12 @@ include 'header.php';
                     Informasi Footer</h5>
                 <form action="admin-footer-actions.php" method="post">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Alamat</label>
-                        <textarea class="form-control" name="address" rows="3"
-                            required><?= htmlspecialchars($address) ?></textarea>
-                        <div class="form-text">Alamat lengkap yang ditampilkan di footer.</div>
+                        <label class="form-label fw-semibold">Deskripsi Singkat</label>
+                        <textarea class="form-control" name="description" rows="3"
+                            required><?= htmlspecialchars($description) ?></textarea>
+                        <div class="form-text">Deskripsi singkat tentang @nt's Arena yang ditampilkan di footer.</div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Nomor Telepon</label>
-                            <input type="text" class="form-control" name="phone" value="<?= htmlspecialchars($phone) ?>"
-                                required>
-                            <div class="form-text">Format: +62 812-3456-7890</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Email</label>
-                            <input type="email" class="form-control" name="email"
-                                value="<?= htmlspecialchars($email) ?>" required>
-                            <div class="form-text">Email untuk kontak.</div>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Jam Operasional (Weekday)</label>
@@ -63,6 +52,14 @@ include 'header.php';
                             <div class="form-text">Contoh: Sabtu-Minggu: 8 Pagi - 11 Malam</div>
                         </div>
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Teks Copyright</label>
+                        <input type="text" class="form-control" name="copyright"
+                            value="<?= htmlspecialchars($copyright) ?>" required>
+                        <div class="form-text">Teks copyright yang ditampilkan di bagian bawah footer.</div>
+                    </div>
+
                     <hr class="my-4">
                     <h6 class="mb-3" style="font-weight:600; color:var(--text-primary);">Media Sosial</h6>
                     <div class="mb-3">
@@ -99,45 +96,55 @@ include 'header.php';
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="card border-0 shadow-sm"
-            style="border-radius:16px; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white;">
+        <div class="card border-0 shadow-sm" style="border-radius:16px;">
             <div class="card-body p-4">
-                <h6 class="mb-3" style="font-weight:700;"><i class="bi bi-eye me-2"></i>Preview Footer</h6>
-                <div class="mb-3">
-                    <small class="text-white-50 d-block mb-1">ALAMAT</small>
-                    <div style="font-size:0.9rem;"><?= nl2br(htmlspecialchars($address)) ?></div>
-                </div>
-                <div class="mb-3">
-                    <small class="text-white-50 d-block mb-1">KONTAK</small>
-                    <div style="font-size:0.9rem;">
-                        <strong>Telepon:</strong> <?= htmlspecialchars($phone) ?><br>
-                        <strong>Email:</strong> <?= htmlspecialchars($email) ?>
+                <h6 class="card-title mb-3" style="font-weight:600;">Pratinjau Footer</h6>
+                <div class="border rounded p-3" style="background:#f8f9fa; font-size:0.85rem;">
+                    <div class="mb-3">
+                        <strong>Deskripsi:</strong>
+                        <p class="mb-0 mt-1 text-muted"><?= htmlspecialchars($description) ?></p>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Jam Operasional:</strong>
+                        <p class="mb-0 mt-1 text-muted">
+                            <?= htmlspecialchars($hours_weekday) ?><br>
+                            <?= htmlspecialchars($hours_weekend) ?>
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Copyright:</strong>
+                        <p class="mb-0 mt-1 text-muted"><?= htmlspecialchars($copyright) ?></p>
+                    </div>
+                    <div>
+                        <strong>Media Sosial:</strong>
+                        <div class="mt-2">
+                            <?php if($instagram !== '#'): ?>
+                            <span class="badge bg-danger me-1"><i class="bi bi-instagram"></i> Instagram</span>
+                            <?php endif; ?>
+                            <?php if($facebook !== '#'): ?>
+                            <span class="badge bg-primary me-1"><i class="bi bi-facebook"></i> Facebook</span>
+                            <?php endif; ?>
+                            <?php if($twitter !== '#'): ?>
+                            <span class="badge bg-dark me-1"><i class="bi bi-twitter-x"></i> Twitter</span>
+                            <?php endif; ?>
+                            <?php if($linkedin !== '#'): ?>
+                            <span class="badge bg-info me-1"><i class="bi bi-linkedin"></i> LinkedIn</span>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <small class="text-white-50 d-block mb-1">JAM OPERASIONAL</small>
-                    <div style="font-size:0.9rem;">
-                        <?= htmlspecialchars($hours_weekday) ?><br>
-                        <?= htmlspecialchars($hours_weekend) ?>
-                    </div>
-                </div>
-                <div>
-                    <small class="text-white-50 d-block mb-2">MEDIA SOSIAL</small>
-                    <div class="d-flex gap-2">
-                        <?php if ($instagram && $instagram !== '#'): ?><a href="<?= htmlspecialchars($instagram) ?>"
-                            class="btn btn-sm btn-light" target="_blank"><i
-                                class="bi bi-instagram"></i></a><?php endif; ?>
-                        <?php if ($facebook && $facebook !== '#'): ?><a href="<?= htmlspecialchars($facebook) ?>"
-                            class="btn btn-sm btn-light" target="_blank"><i
-                                class="bi bi-facebook"></i></a><?php endif; ?>
-                        <?php if ($twitter && $twitter !== '#'): ?><a href="<?= htmlspecialchars($twitter) ?>"
-                            class="btn btn-sm btn-light" target="_blank"><i
-                                class="bi bi-twitter-x"></i></a><?php endif; ?>
-                        <?php if ($linkedin && $linkedin !== '#'): ?><a href="<?= htmlspecialchars($linkedin) ?>"
-                            class="btn btn-sm btn-light" target="_blank"><i
-                                class="bi bi-linkedin"></i></a><?php endif; ?>
-                    </div>
-                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mt-3" style="border-radius:16px;">
+            <div class="card-body p-4">
+                <h6 class="card-title mb-3" style="font-weight:600;"><i class="bi bi-info-circle me-2"></i>Informasi
+                </h6>
+                <ul class="small mb-0 ps-3">
+                    <li class="mb-2">Menu cepat dibuat otomatis dari navigasi utama</li>
+                    <li class="mb-2">Pastikan URL media sosial lengkap dengan https://</li>
+                    <li class="mb-2">Gunakan # untuk menyembunyikan link media sosial</li>
+                </ul>
             </div>
         </div>
     </div>
