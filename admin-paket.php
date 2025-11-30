@@ -62,13 +62,7 @@ include 'header.php';
                                         <button class="btn btn-sm btn-warning me-1 action-btn"
                                             onclick='editPaket(<?php echo json_encode($p, JSON_HEX_APOS|JSON_HEX_TAG|JSON_HEX_QUOT|JSON_UNESCAPED_UNICODE); ?>)'><i
                                                 class="bi bi-pencil"></i></button>
-                                        <form action="admin-paket-actions.php" method="POST" class="d-inline"
-                                            onsubmit="return confirm('Hapus paket ini?')">
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
-                                            <button class="btn btn-sm btn-danger action-btn"><i
-                                                    class="bi bi-trash"></i></button>
-                                        </form>
+                                        <button class="btn btn-sm btn-danger action-btn" onclick="hapusGeneric('admin-paket-actions.php', {id: '<?php echo $p['id']; ?>'}, 'action', 'delete', 'Hapus paket ini?')"><i class="bi bi-trash"></i></button>
                                     </td>
                                 </tr>
                                 <?php endforeach; else: ?>

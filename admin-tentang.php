@@ -89,13 +89,7 @@ include 'header.php';
                             <div class="card-body p-2">
                                 <small class="text-muted d-block text-truncate"
                                     title="<?= htmlspecialchars($filename) ?>"><?= htmlspecialchars($filename) ?></small>
-                                <form action="admin-tentang-actions.php" method="POST" class="mt-2"
-                                    onsubmit="return confirm('Yakin hapus gambar ini?')">
-                                    <input type="hidden" name="action" value="delete_image">
-                                    <input type="hidden" name="filename" value="<?= htmlspecialchars($filename) ?>">
-                                    <button type="submit" class="btn btn-danger btn-sm w-100"><i
-                                            class="bi bi-trash"></i> Hapus</button>
-                                </form>
+                                <button class="btn btn-danger btn-sm w-100 mt-2" onclick="hapusGeneric('admin-tentang-actions.php',{filename: '<?= htmlspecialchars($filename) ?>'}, 'action', 'delete_image', 'Yakin hapus gambar ini?')"><i class="bi bi-trash"></i> Hapus</button>
                             </div>
                         </div>
                     </div>

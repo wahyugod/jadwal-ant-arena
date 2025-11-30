@@ -146,13 +146,7 @@ include 'header.php';
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center mt-auto">
                                         <span class="badge bg-light text-dark border"><?= $sizeKb ?> KB</span>
-                                        <form method="post" onsubmit="return confirm('Hapus foto ini?');">
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="filename"
-                                                value="<?= htmlspecialchars($filename) ?>">
-                                            <button type="submit" class="btn btn-danger btn-sm"><i
-                                                    class="bi bi-trash"></i></button>
-                                        </form>
+                                        <button class="btn btn-danger btn-sm" onclick="hapusGeneric('admin-galeri.php',{filename: '<?= htmlspecialchars($filename) ?>'}, 'action', 'delete', 'Hapus foto ini?')"><i class="bi bi-trash"></i></button>
                                     </div>
                                 </div>
                             </div>

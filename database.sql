@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `reservasi` (
   `no_telepon` varchar(20) NOT NULL,
   `hari` enum('senin','selasa','rabu','kamis','jumat','sabtu','minggu') NOT NULL,
   `jam` varchar(50) NOT NULL,
-  `paket` enum('harian','bulanan','tahunan') NOT NULL DEFAULT 'jam',
+  `paket` enum('harian','bulanan','tahunan') NOT NULL DEFAULT 'harian',
   `status` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
   `pesan` text,
   `tanggal_mulai` date NOT NULL,

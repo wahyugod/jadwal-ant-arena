@@ -29,8 +29,13 @@ try {
         exit;
     }
 
-    // Validasi paket
-    $allowedPaket = ['jam','bulanan','tahunan'];
+    // Normalisasi paket: frontend uses value 'jam' for harian — map it to DB enum 'harian'
+    if ($paket === 'jam') {
+        $paket = 'harian';
+    }
+
+    // Validasi paket sesuai struktur DB (paket di DB: harian, bulanan, tahunan)
+    $allowedPaket = ['harian','bulanan','tahunan'];
     if (!in_array($paket, $allowedPaket, true)) {
         http_response_code(400);
         echo 'Paket tidak valid';

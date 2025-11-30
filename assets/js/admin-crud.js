@@ -174,23 +174,70 @@ function editGeneric(prefix, row) {
     }
 }
 
-function hapusGeneric(actionUrl, id) {
-    if (!confirm('Apakah Anda yakin ingin menghapus data ini?')) return;
+function hapusGeneric(actionUrl, data, actionFieldName = 'action', actionFieldValue = 'delete', message) {
+    // data: either scalar id or object of key->value pairs
+    // If there's a generic modal present, use it. Otherwise fall back to confirm + dynamic form submit.
+    const modal = document.getElementById('modalDeleteGeneric');
+    if (modal) {
+        const form = document.getElementById('formDeleteGeneric');
+        const extras = document.getElementById('formDeleteExtras');
+        const msgEl = document.getElementById('modalDeleteMessage');
+        // Clear extras
+        extras.innerHTML = '';
+        // Set form action
+        form.action = actionUrl;
+        // Ensure action field
+        let af = form.querySelector('input[name="' + actionFieldName + '"]');
+        if (!af) {
+            af = document.createElement('input'); af.type = 'hidden'; af.name = actionFieldName; form.appendChild(af);
+        }
+        af.value = actionFieldValue;
+
+        // Add data fields
+        if (data !== null && typeof data === 'object') {
+            for (const k in data) {
+                const inp = document.createElement('input'); inp.type = 'hidden'; inp.name = k; inp.value = data[k]; extras.appendChild(inp);
+            }
+        } else {
+            // assume id
+            const inp = document.createElement('input'); inp.type = 'hidden'; inp.name = 'id'; inp.value = data; extras.appendChild(inp);
+        }
+
+        if (message && msgEl) msgEl.textContent = message;
+
+        const confirmBtn = document.getElementById('modalDeleteConfirm');
+        // Remove previous listeners
+        const newBtn = confirmBtn.cloneNode(true);
+        confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
+        newBtn.addEventListener('click', function () { form.submit(); });
+
+        safeShowModal('modalDeleteGeneric');
+        return;
+    }
+
+    // Fallback to confirm + submit
+    if (!confirm(message || 'Apakah Anda yakin ingin menghapus data ini?')) return;
     const f = document.createElement('form');
     f.method = 'POST';
     f.action = actionUrl;
 
     const a = document.createElement('input');
     a.type = 'hidden';
-    a.name = 'action';
-    a.value = 'delete';
+    a.name = actionFieldName;
+    a.value = actionFieldValue;
     f.appendChild(a);
 
-    const i = document.createElement('input');
-    i.type = 'hidden';
-    i.name = 'id';
-    i.value = id;
-    f.appendChild(i);
+    if (data !== null && typeof data === 'object') {
+        for (const k in data) {
+            const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = data[k]; f.appendChild(i);
+        }
+    } else {
+        const i = document.createElement('input');
+        i.type = 'hidden';
+        i.name = 'id';
+        i.value = data;
+        f.appendChild(i);
+    }
 
     document.body.appendChild(f);
     f.submit();
@@ -256,5 +303,48 @@ function hapusFAQ(id) {
         const i = document.createElement('input'); i.type = 'hidden'; i.name = 'id'; i.value = id; f.appendChild(i);
         document.body.appendChild(f);
         f.submit();
+    }
+}
+
+// Reservation approve/reject helpers
+function approveReservation(id) {
+    try {
+        const title = document.getElementById('modalTitle');
+        const msg = document.getElementById('modalMessage');
+        const rid = document.getElementById('reservationId');
+        const action = document.getElementById('reservationAction');
+        const btn = document.getElementById('confirmButton');
+        if (title) title.textContent = 'Konfirmasi Setujui Reservasi';
+        if (msg) msg.textContent = 'Apakah Anda yakin ingin menyetujui reservasi ini? Jadwal akan ditandai terisi.';
+        if (rid) rid.value = id;
+        if (action) action.value = 'approve';
+        if (btn) {
+            btn.className = 'btn btn-success';
+            btn.textContent = 'Setujui';
+        }
+        safeShowModal('modalConfirm');
+    } catch (e) {
+        console.error('approveReservation error', e);
+    }
+}
+
+function rejectReservation(id) {
+    try {
+        const title = document.getElementById('modalTitle');
+        const msg = document.getElementById('modalMessage');
+        const rid = document.getElementById('reservationId');
+        const action = document.getElementById('reservationAction');
+        const btn = document.getElementById('confirmButton');
+        if (title) title.textContent = 'Konfirmasi Tolak Reservasi';
+        if (msg) msg.textContent = 'Apakah Anda yakin ingin menolak reservasi ini?';
+        if (rid) rid.value = id;
+        if (action) action.value = 'reject';
+        if (btn) {
+            btn.className = 'btn btn-danger';
+            btn.textContent = 'Tolak';
+        }
+        safeShowModal('modalConfirm');
+    } catch (e) {
+        console.error('rejectReservation error', e);
     }
 }

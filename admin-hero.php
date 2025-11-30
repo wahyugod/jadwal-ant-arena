@@ -59,13 +59,13 @@ include 'header.php';
                                 echo '<div class="row g-2">';
                                 foreach ($heroFiles as $f) {
                                     $rel = 'assets/hero/' . basename($f);
+                                    $fname = basename($f);
                                     echo '<div class="col-6 mb-2">';
                                     echo '<img src="' . htmlspecialchars($rel) . '" alt="Hero" class="img-thumbnail" style="width:100%; height:100px; object-fit:cover;">';
-                                    echo '<form method="POST" action="admin-hero-actions.php" class="mt-1" onsubmit="return confirm(\'Hapus gambar ini?\')">';
-                                    echo '<input type="hidden" name="action" value="delete_image">';
-                                    echo '<input type="hidden" name="filename" value="' . htmlspecialchars(basename($f)) . '">';
-                                    echo '<button type="submit" class="btn btn-sm btn-danger w-100"><i class="bi bi-trash"></i> Hapus</button>';
-                                    echo '</form>';
+                                    echo '<div class="d-grid">';
+                                    $onclick = 'hapusGeneric(' . json_encode('admin-hero-actions.php') . ', {filename: ' . json_encode($fname) . '}, ' . json_encode('action') . ', ' . json_encode('delete_image') . ', ' . json_encode('Hapus gambar ini?') . ')';
+                                    echo "<button class=\"btn btn-sm btn-danger w-100\" onclick='" . $onclick . "'><i class=\"bi bi-trash\"></i> Hapus</button>";
+                                    echo '</div>';
                                     echo '</div>';
                                 }
                                 echo '</div>';
