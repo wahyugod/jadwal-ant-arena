@@ -90,6 +90,34 @@ $galeriImages = glob(__DIR__ . '/assets/galeri/*.{jpg,jpeg,png,webp,gif,JPG,JPEG
 // Urutkan terbaru di atas
 usort($galeriImages, function($a, $b){ return filemtime($b) <=> filemtime($a); });
 
+// Ambil data Why Us
+$whyUsData = [
+    'title' => 'Kenapa @nt\'s Arena?',
+    'paragraph_1' => '@nt\'s Arena adalah pilihan terbaik untuk Anda yang ingin menyewa lapangan di Samarinda...',
+    'paragraph_2' => 'Dengan sistem pemesanan yang mudah...',
+    'feature_1_icon' => 'bi-clipboard-data',
+    'feature_1_title' => 'Lapangan Standar Turnamen',
+    'feature_1_desc' => 'Permukaan lapangan berkualitas tinggi...',
+    'feature_2_icon' => 'bi-gem',
+    'feature_2_title' => 'Pemesanan Online Mudah',
+    'feature_2_desc' => 'Booking jadwal bermain Anda secara online...',
+    'feature_3_icon' => 'bi-inboxes',
+    'feature_3_title' => 'Harga & Fasilitas Lengkap',
+    'feature_3_desc' => 'Nikmati tarif sewa bersahabat...'
+];
+$res = $conn->query("SELECT * FROM why_us ORDER BY id DESC LIMIT 1");
+if ($res && $row = $res->fetch_assoc()) { $whyUsData = $row; $res->free_result(); }
+
+// Ambil data Stats
+$statsData = [
+    'stat_1_icon' => 'bi-people', 'stat_1_value' => 232, 'stat_1_label' => 'Klien',
+    'stat_2_icon' => 'bi-stopwatch', 'stat_2_value' => 1453, 'stat_2_label' => 'Total Jam Reservasi',
+    'stat_3_icon' => 'bi-person-badge', 'stat_3_value' => 32, 'stat_3_label' => 'Pegawai',
+    'stat_4_icon' => 'bi-columns', 'stat_4_value' => 3, 'stat_4_label' => 'Lapangan'
+];
+$res = $conn->query("SELECT * FROM stats ORDER BY id DESC LIMIT 1");
+if ($res && $row = $res->fetch_assoc()) { $statsData = $row; $res->free_result(); }
+
 // Helper aman HTML
 function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 ?>
@@ -255,20 +283,9 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="why-box">
-                            <h3>Kenapa @nt's Arena?</h3>
-                            <p>
-                                @nt's Arena adalah pilihan terbaik untuk Anda yang ingin menyewa lapangan di
-                                Samarinda.
-                                Kami menyediakan lapangan berkualitas dengan lantai berstandar turnamen,
-                                pencahayaan optimal,
-                                serta suasana nyaman untuk latihan maupun pertandingan.
-                            </p>
-                            <p>
-                                Dengan sistem pemesanan yang mudah dan harga sewa yang terjangkau,
-                                Anda dapat bermain kapan saja tanpa khawatir kehabisan jadwal.
-                                Kami juga menyediakan fasilitas lengkap untuk mendukung pengalaman
-                                bermain Anda.
-                            </p>
+                            <h3><?= e($whyUsData['title']) ?></h3>
+                            <p><?= e($whyUsData['paragraph_1']) ?></p>
+                            <p><?= e($whyUsData['paragraph_2']) ?></p>
                         </div>
                     </div><!-- End Why Box -->
 
@@ -277,29 +294,25 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
                             <div class="col-xl-4">
                                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                                    <i class="bi bi-clipboard-data"></i>
-                                    <h4 class="fw-bold">Lapangan Standar Turnamen</h4>
-                                    <p>Permukaan lapangan berkualitas tinggi dengan pencahayaan yang dirancang agar
-                                        nyaman di mata dan cocok untuk pertandingan profesional.</p>
+                                    <i class="<?= e($whyUsData['feature_1_icon']) ?>"></i>
+                                    <h4 class="fw-bold"><?= e($whyUsData['feature_1_title']) ?></h4>
+                                    <p><?= e($whyUsData['feature_1_desc']) ?></p>
                                 </div>
                             </div><!-- End Icon Box -->
 
                             <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
                                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                                    <i class="bi bi-gem"></i>
-                                    <h4 class="fw-bold">Pemesanan Online Mudah</h4>
-                                    <p>Booking jadwal bermain Anda secara online kapan pun dan di mana pun tanpa perlu
-                                        antre.
-                                        Jadwalkan permainan dengan cepat dan praktis tanpa lama tanpa ribet.</p>
+                                    <i class="<?= e($whyUsData['feature_2_icon']) ?>"></i>
+                                    <h4 class="fw-bold"><?= e($whyUsData['feature_2_title']) ?></h4>
+                                    <p><?= e($whyUsData['feature_2_desc']) ?></p>
                                 </div>
                             </div><!-- End Icon Box -->
 
                             <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
                                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                                    <i class="bi bi-inboxes"></i>
-                                    <h4 class="fw-bold">Harga & Fasilitas Lengkap</h4>
-                                    <p>Nikmati tarif sewa bersahabat dengan fasilitas memadai seperti kantin, mushola,
-                                        dan pencahayaan LED untuk mendukung kenyamanan Anda bermain.</p>
+                                    <i class="<?= e($whyUsData['feature_3_icon']) ?>"></i>
+                                    <h4 class="fw-bold"><?= e($whyUsData['feature_3_title']) ?></h4>
+                                    <p><?= e($whyUsData['feature_3_desc']) ?></p>
                                 </div>
                             </div><!-- End Icon Box -->
 
@@ -323,48 +336,48 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-                            <i class="bi bi-people stats-icon me-3 d-flex align-items-center justify-content-center"
+                            <i class="<?= e($statsData['stat_1_icon']) ?> stats-icon me-3 d-flex align-items-center justify-content-center"
                                 style="font-size: 4rem; padding-top: 13px"></i>
                             <div class="text-center d-flex flex-column justify-content-center">
-                                <span data-purecounter-start="0" data-purecounter-end="232"
+                                <span data-purecounter-start="0" data-purecounter-end="<?= e($statsData['stat_1_value']) ?>"
                                     data-purecounter-duration="1" class="purecounter d-block"></span>
-                                <p class="mb-0">Klien</p>
+                                <p class="mb-0"><?= e($statsData['stat_1_label']) ?></p>
                             </div>
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-                            <i class="bi bi-stopwatch stats-icon me-3 d-flex align-items-center justify-content-center"
+                            <i class="<?= e($statsData['stat_2_icon']) ?> stats-icon me-3 d-flex align-items-center justify-content-center"
                                 style="font-size: 4rem; padding-top: 13px"></i>
                             <div class="text-center d-flex flex-column justify-content-center">
-                                <span data-purecounter-start="0" data-purecounter-end="1453"
+                                <span data-purecounter-start="0" data-purecounter-end="<?= e($statsData['stat_2_value']) ?>"
                                     data-purecounter-duration="1" class="purecounter d-block"></span>
-                                <p class="mb-0">Total Jam Reservasi</p>
+                                <p class="mb-0"><?= e($statsData['stat_2_label']) ?></p>
                             </div>
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-                            <i class="bi bi-person-badge stats-icon me-3 d-flex align-items-center justify-content-center"
+                            <i class="<?= e($statsData['stat_3_icon']) ?> stats-icon me-3 d-flex align-items-center justify-content-center"
                                 style="font-size: 4rem; padding-top: 13px"></i>
                             <div class="text-center d-flex flex-column justify-content-center">
-                                <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
+                                <span data-purecounter-start="0" data-purecounter-end="<?= e($statsData['stat_3_value']) ?>" data-purecounter-duration="1"
                                     class="purecounter d-block"></span>
-                                <p class="mb-0">Pegawai</p>
+                                <p class="mb-0"><?= e($statsData['stat_3_label']) ?></p>
                             </div>
                         </div>
                     </div><!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-                            <i class="bi bi-columns stats-icon me-3 d-flex align-items-center justify-content-center"
+                            <i class="<?= e($statsData['stat_4_icon']) ?> stats-icon me-3 d-flex align-items-center justify-content-center"
                                 style="font-size: 4rem; padding-top: 13px"></i>
                             <div class="text-center d-flex flex-column justify-content-center">
-                                <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1"
+                                <span data-purecounter-start="0" data-purecounter-end="<?= e($statsData['stat_4_value']) ?>" data-purecounter-duration="1"
                                     class="purecounter d-block"></span>
-                                <p class="mb-0">Lapangan</p>
+                                <p class="mb-0"><?= e($statsData['stat_4_label']) ?></p>
                             </div>
                         </div>
                     </div><!-- End Stats Item -->

@@ -197,15 +197,14 @@ $result = $conn->query($sql);
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card stat-card primary">
                             <div class="card-body d-flex align-items-center">
-                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
+                                <div class="stat-icon d-flex justify-content-center align-items-center"
+                                    style="margin-top: 15px; margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-calendar3"></i>
                                 </div>
                                 <div style="flex: 1;">
                                     <div class="stat-label">Total Jadwal</div>
                                     <div class="stat-value" id="stat-total-jadwal">-</div>
-                                    <div class="stat-change">
-                                        <i class="bi bi-arrow-up"></i> +2.45%
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -213,15 +212,14 @@ $result = $conn->query($sql);
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card stat-card success">
                             <div class="card-body d-flex align-items-center">
-                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
+                                <div class="stat-icon d-flex justify-content-center align-items-center"
+                                    style="margin-top: 15px; margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-check-circle"></i>
                                 </div>
                                 <div style="flex: 1;">
                                     <div class="stat-label">Slot Terisi</div>
                                     <div class="stat-value" id="stat-slot-terisi">-</div>
-                                    <div class="stat-change">
-                                        <i class="bi bi-arrow-up"></i> +12.5%
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -229,15 +227,14 @@ $result = $conn->query($sql);
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card stat-card warning">
                             <div class="card-body d-flex align-items-center">
-                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
+                                <div class="stat-icon d-flex justify-content-center align-items-center"
+                                    style="margin-top: 15px; margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-inbox"></i>
                                 </div>
                                 <div style="flex: 1;">
                                     <div class="stat-label">Slot Tersedia</div>
                                     <div class="stat-value" id="stat-slot-tersedia">-</div>
-                                    <div class="stat-change negative">
-                                        <i class="bi bi-arrow-down"></i> -5.2%
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -245,15 +242,14 @@ $result = $conn->query($sql);
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card stat-card info">
                             <div class="card-body d-flex align-items-center">
-                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
+                                <div class="stat-icon d-flex justify-content-center align-items-center"
+                                    style="margin-top: 15px; margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-pie-chart"></i>
                                 </div>
                                 <div style="flex: 1;">
                                     <div class="stat-label">Persentase Terisi</div>
                                     <div class="stat-value" id="stat-persentase">-</div>
-                                    <div class="stat-change">
-                                        <i class="bi bi-arrow-up"></i> +8.3%
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -261,12 +257,13 @@ $result = $conn->query($sql);
                 </div>
 
                 <!-- Keuangan Stats Cards -->
-                <h5 class="mt-5 mb-4" style="color: var(--text-primary); font-weight: 700;">💰 Keuangan</h5>
+                <h4 class="mt-3 mb-4" style="color: var(--text-primary); font-weight: 700;">💰 Keuangan</h4>
                 <div class="row">
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card stat-card success">
                             <div class="card-body d-flex align-items-center">
-                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
+                                <div class="stat-icon d-flex justify-content-center align-items-center"
+                                    style="margin-top: 15px; margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-arrow-down-circle"></i>
                                 </div>
                                 <div style="flex: 1;">
@@ -279,7 +276,8 @@ $result = $conn->query($sql);
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card stat-card warning">
                             <div class="card-body d-flex align-items-center">
-                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
+                                <div class="stat-icon d-flex justify-content-center align-items-center"
+                                    style="margin-top: 15px; margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-arrow-up-circle"></i>
                                 </div>
                                 <div style="flex: 1;">
@@ -292,7 +290,8 @@ $result = $conn->query($sql);
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card stat-card info">
                             <div class="card-body d-flex align-items-center">
-                                <div class="stat-icon d-flex justify-content-center align-items-center" style="margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
+                                <div class="stat-icon d-flex justify-content-center align-items-center"
+                                    style="margin-top: 15px; margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
                                     <i class="bi bi-wallet2"></i>
                                 </div>
                                 <div style="flex: 1;">
@@ -380,7 +379,7 @@ $result = $conn->query($sql);
                 <h4 class="mb-4" style="color: var(--text-primary); font-weight: 700;">📅 Manajemen Jadwal</h4>
 
                 <div class="mb-3 d-flex gap-2 justify-content-end">
-                    <button class="btn btn-success" id="setSlotsAvailable">
+                    <button class="btn btn-success" id="setSlotsAvailable" style="margin-right: 5px;">
                         <i class="bi bi-check-circle"></i> Sediakan Semua Slot
                     </button>
                     <div class="dropdown">
@@ -503,6 +502,32 @@ $result = $conn->query($sql);
 
     <!-- Toast container -->
     <div class="toast-container" id="toastContainer" style="position: fixed; top: 1rem; right: 1rem; z-index: 1100;">
+    </div>
+
+    <!-- Modal Konfirmasi Custom -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"
+                style="border-radius: 16px; border: none; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+                <div class="modal-header" style="border-bottom: none; padding: 24px 24px 0;">
+                    <div style="width: 100%; text-align: center;">
+                        <div id="confirmIcon" class="mb-3" style="font-size: 3.5rem;"></div>
+                        <h5 class="modal-title" id="confirmTitle"
+                            style="font-weight: 700; font-size: 1.5rem; color: var(--text-primary);"></h5>
+                    </div>
+                </div>
+                <div class="modal-body" style="padding: 16px 32px; text-align: center;">
+                    <p id="confirmMessage" style="color: var(--text-secondary); font-size: 1rem; margin: 0;"></p>
+                </div>
+                <div class="modal-footer"
+                    style="border-top: none; padding: 0 24px 24px; gap: 12px; justify-content: center;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        style="padding: 10px 24px; border-radius: 8px; font-weight: 600; min-width: 100px;">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmActionBtn"
+                        style="padding: 10px 24px; border-radius: 8px; font-weight: 600; min-width: 100px;">Konfirmasi</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -1067,15 +1092,16 @@ $result = $conn->query($sql);
                     body: `id=${jadwalId}&day=${day}&value=Tersedia`
                 })
                 .then(response => response.json())
-            .then(data => {
+                .then(data => {
                     if (data.success) {
-                    currentCell.innerHTML = '<span class="text-danger">Tersedia</span>';
-                    // keep dataset empty so modal will show empty input for adding a team
-                    currentCell.dataset.value = '';
-                    document.getElementById('teamNameInput').value = '';
+                        currentCell.innerHTML = '<span class="text-danger">Tersedia</span>';
+                        // keep dataset empty so modal will show empty input for adding a team
+                        currentCell.dataset.value = '';
+                        document.getElementById('teamNameInput').value = '';
 
-                    showModalAlert('Slot berhasil disediakan!', 'success');
-                    showToast('Slot berhasil disediakan', 'success');                        setTimeout(() => {
+                        showModalAlert('Slot berhasil disediakan!', 'success');
+                        showToast('Slot berhasil disediakan', 'success');
+                        setTimeout(() => {
                             modal.hide();
                             loadStatistics(); // Refresh stats
                         }, 700);
@@ -1135,46 +1161,74 @@ $result = $conn->query($sql);
             }
         });
 
+        // Fungsi untuk menampilkan modal konfirmasi custom
+        function showConfirm(title, message, onConfirm, icon = '❓') {
+            const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMessage').textContent = message;
+            document.getElementById('confirmIcon').textContent = icon;
+
+            const confirmBtn = document.getElementById('confirmActionBtn');
+            // Remove previous listeners
+            const newBtn = confirmBtn.cloneNode(true);
+            confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
+
+            newBtn.addEventListener('click', function() {
+                modal.hide();
+                if (onConfirm) onConfirm();
+            });
+
+            modal.show();
+        }
+
         document.getElementById('setSlotsAvailable').addEventListener('click', function() {
             const btn = this;
 
-            if (!confirm('Sediakan semua slot pada jadwal?')) {
-                return;
-            }
+            showConfirm(
+                'Sediakan Semua Slot?',
+                'Apakah Anda yakin ingin menyediakan semua slot pada jadwal? Tindakan ini akan mengosongkan semua slot yang sudah terisi.',
+                function() {
 
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Menyediakan...';
+                    btn.disabled = true;
+                    btn.innerHTML =
+                        '<span class="spinner-border spinner-border-sm me-2"></span>Menyediakan...';
 
-            fetch('admin-bulk-action.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: 'action=set_available'
-                })
-                .then(response => response.json())
-                .then(data => {
-                if (data.success) {
-                    showToast('Semua slot berhasil disediakan!', 'success');
+                    fetch('admin-bulk-action.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: 'action=set_available'
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast('Semua slot berhasil disediakan!', 'success');
 
-                    // Update all cells in the table
-                    document.querySelectorAll('.team-cell').forEach(cell => {
-                        cell.innerHTML = '<span class="text-danger">Tersedia</span>';
-                        // keep dataset.value empty so modal shows empty input for adding a team
-                        cell.dataset.value = '';
-                    });                        // Refresh statistics to reflect changes
-                        loadStatistics();
-                    } else {
-                        showToast('Gagal: ' + (data.message || 'Unknown error'), 'danger');
-                    }
-                })
-                .catch(error => {
-                    showToast('Error: ' + error.message, 'danger');
-                })
-                .finally(() => {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="bi bi-check-circle"></i> Sediakan Semua Slot';
-                });
+                                // Update all cells in the table
+                                document.querySelectorAll('.team-cell').forEach(cell => {
+                                    cell.innerHTML =
+                                        '<span class="text-danger">Tersedia</span>';
+                                    // keep dataset.value empty so modal shows empty input for adding a team
+                                    cell.dataset.value = '';
+                                }); // Refresh statistics to reflect changes
+                                loadStatistics();
+                            } else {
+                                showToast('Gagal: ' + (data.message || 'Unknown error'),
+                                    'danger');
+                            }
+                        })
+                        .catch(error => {
+                            showToast('Error: ' + error.message, 'danger');
+                        })
+                        .finally(() => {
+                            btn.disabled = false;
+                            btn.innerHTML =
+                                '<i class="bi bi-check-circle"></i> Sediakan Semua Slot';
+                        });
+                },
+                '✅'
+            );
         });
 
         // Handler untuk tombol sediakan per hari
@@ -1184,52 +1238,58 @@ $result = $conn->query($sql);
                 const dayName = day.charAt(0).toUpperCase() + day.slice(1);
                 const dropdownButton = document.getElementById('setDayAvailableButton');
 
-                if (!confirm(`Sediakan semua slot untuk hari ${dayName}?`)) {
-                    return;
-                }
+                showConfirm(
+                    `Sediakan Slot Hari ${dayName}?`,
+                    `Apakah Anda yakin ingin menyediakan semua slot untuk hari ${dayName}? Semua slot yang sudah terisi akan dikosongkan.`,
+                    function() {
 
-                // Disable both dropdown toggle and the clicked item
-                dropdownButton.disabled = true;
-                const originalDropdownText = dropdownButton.innerHTML;
-                dropdownButton.innerHTML =
-                    '<span class="spinner-border spinner-border-sm me-2"></span>Menyediakan...';
+                        // Disable both dropdown toggle and the clicked item
+                        dropdownButton.disabled = true;
+                        const originalDropdownText = dropdownButton.innerHTML;
+                        dropdownButton.innerHTML =
+                            '<span class="spinner-border spinner-border-sm me-2"></span>Menyediakan...';
 
-                fetch('admin-bulk-action.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `action=set_day_available&day=${day}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showToast(
-                                `Semua slot untuk hari ${dayName} berhasil disediakan`,
-                                'success');
+                        fetch('admin-bulk-action.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                body: `action=set_day_available&day=${day}`
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    showToast(
+                                        `Semua slot untuk hari ${dayName} berhasil disediakan`,
+                                        'success');
 
-                            // Update semua cell untuk hari tersebut (display Tersedia, keep dataset empty)
-                            document.querySelectorAll(`.team-cell[data-day="${day}"]`)
-                                .forEach(cell => {
-                                    cell.innerHTML =
-                                        '<span class="text-danger">Tersedia</span>';
-                                    cell.dataset.value = '';
-                                });
+                                    // Update semua cell untuk hari tersebut (display Tersedia, keep dataset empty)
+                                    document.querySelectorAll(
+                                            `.team-cell[data-day="${day}"]`)
+                                        .forEach(cell => {
+                                            cell.innerHTML =
+                                                '<span class="text-danger">Tersedia</span>';
+                                            cell.dataset.value = '';
+                                        });
 
-                            // Refresh statistics
-                            loadStatistics();
-                        } else {
-                            showToast('Gagal: ' + (data.message || 'Unknown error'),
-                                'danger');
-                        }
-                    })
-                    .catch(error => {
-                        showToast('Error: ' + error.message, 'danger');
-                    })
-                    .finally(() => {
-                        dropdownButton.disabled = false;
-                        dropdownButton.innerHTML = originalDropdownText;
-                    });
+                                    // Refresh statistics
+                                    loadStatistics();
+                                } else {
+                                    showToast('Gagal: ' + (data.message ||
+                                            'Unknown error'),
+                                        'danger');
+                                }
+                            })
+                            .catch(error => {
+                                showToast('Error: ' + error.message, 'danger');
+                            })
+                            .finally(() => {
+                                dropdownButton.disabled = false;
+                                dropdownButton.innerHTML = originalDropdownText;
+                            });
+                    },
+                    '✅'
+                );
             });
         });
     });

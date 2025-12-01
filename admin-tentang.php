@@ -7,6 +7,17 @@ $conn = getConnection();
 $about = null;
 $res = $conn->query('SELECT * FROM about ORDER BY id ASC LIMIT 1');
 if ($res) { $about = $res->fetch_assoc(); $res->free_result(); }
+
+// Ambil data why_us
+$whyUs = null;
+$res = $conn->query('SELECT * FROM why_us ORDER BY id ASC LIMIT 1');
+if ($res) { $whyUs = $res->fetch_assoc(); $res->free_result(); }
+
+// Ambil data stats
+$stats = null;
+$res = $conn->query('SELECT * FROM stats ORDER BY id ASC LIMIT 1');
+if ($res) { $stats = $res->fetch_assoc(); $res->free_result(); }
+
 $conn->close();
 
 $paragraph1 = $about['paragraph_1'] ?? '';
@@ -23,7 +34,7 @@ $pageBreadcrumb = 'Tentang';
 include 'header.php';
 ?>
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="card mb-4">
             <div class="card-header">
                 <h5 class="mb-0">Form Tentang Kami</h5>
@@ -47,9 +58,9 @@ include 'header.php';
                             required><?php echo htmlspecialchars($paragraph3); ?></textarea>
                     </div>
                     <div class="d-flex justify-content-end gap-2">
-                    <button type="submit" name="action" value="update_text" class="btn btn-primary"><i
-                            class="bi bi-save"></i> Simpan
-                        Perubahan</button>
+                        <button type="submit" name="action" value="update_text" class="btn btn-primary"><i
+                                class="bi bi-save"></i> Simpan
+                            Perubahan</button>
                     </div>
                 </form>
             </div>
@@ -71,8 +82,8 @@ include 'header.php';
                             sekaligus.</small>
                     </div>
                     <div class="d-flex justify-content-end gap-2">
-                    <button type="submit" name="action" value="upload_images" class="btn btn-success"><i
-                            class="bi bi-upload"></i> Upload Gambar</button>
+                        <button type="submit" name="action" value="upload_images" class="btn btn-success"><i
+                                class="bi bi-upload"></i> Upload Gambar</button>
                     </div>
                 </form>
 
@@ -89,7 +100,9 @@ include 'header.php';
                             <div class="card-body p-2">
                                 <small class="text-muted d-block text-truncate"
                                     title="<?= htmlspecialchars($filename) ?>"><?= htmlspecialchars($filename) ?></small>
-                                <button class="btn btn-danger btn-sm w-100 mt-2" onclick="hapusGeneric('admin-tentang-actions.php',{filename: '<?= htmlspecialchars($filename) ?>'}, 'action', 'delete_image', 'Yakin hapus gambar ini?')"><i class="bi bi-trash"></i> Hapus</button>
+                                <button class="btn btn-danger btn-sm w-100 mt-2"
+                                    onclick="hapusGeneric('admin-tentang-actions.php',{filename: '<?= htmlspecialchars($filename) ?>'}, 'action', 'delete_image', 'Yakin hapus gambar ini?')"><i
+                                        class="bi bi-trash"></i> Hapus</button>
                             </div>
                         </div>
                     </div>
@@ -104,8 +117,8 @@ include 'header.php';
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-4">
+
+        <!-- Pratinjau Slider -->
         <div class="card mb-4">
             <div class="card-header">
                 <h5 class="mb-0">Pratinjau Slider</h5>
@@ -119,7 +132,7 @@ include 'header.php';
                                         ?>
                         <div class="carousel-item <?= $idx === 0 ? 'active' : '' ?>">
                             <img src="<?= htmlspecialchars($relPath) ?>" class="d-block w-100" alt="Preview"
-                                style="max-height:300px; object-fit:cover; border-radius:8px;">
+                                style="max-height:700px; object-fit:cover; border-radius:8px;">
                         </div>
                         <?php endforeach; ?>
                     </div>
@@ -139,6 +152,196 @@ include 'header.php';
                 <?php else: ?>
                 <p class="text-muted">Belum ada gambar untuk ditampilkan</p>
                 <?php endif; ?>
+            </div>
+        </div>
+
+        <!-- Form Why Us -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-star"></i> Section Kenapa?</h5>
+            </div>
+            <div class="card-body">
+                <form action="admin-tentang-actions.php" method="POST">
+                    <div class="mb-3">
+                        <label for="why_title" class="form-label">Judul</label>
+                        <input type="text" class="form-control" id="why_title" name="why_title"
+                            value="<?= htmlspecialchars($whyUs['title'] ?? 'Kenapa @nt\'s Arena?') ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="why_paragraph_1" class="form-label">Paragraf 1</label>
+                        <textarea class="form-control" id="why_paragraph_1" name="why_paragraph_1" rows="3"
+                            required><?= htmlspecialchars($whyUs['paragraph_1'] ?? '') ?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="why_paragraph_2" class="form-label">Paragraf 2</label>
+                        <textarea class="form-control" id="why_paragraph_2" name="why_paragraph_2" rows="3"
+                            required><?= htmlspecialchars($whyUs['paragraph_2'] ?? '') ?></textarea>
+                    </div>
+
+                    <hr class="my-4">
+                    <h6 class="mb-3">Fitur 1</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="feature_1_icon" class="form-label">Ikon Bootstrap</label>
+                            <input type="text" class="form-control" id="feature_1_icon" name="feature_1_icon"
+                                value="<?= htmlspecialchars($whyUs['feature_1_icon'] ?? 'bi-clipboard-data') ?>"
+                                placeholder="bi-clipboard-data">
+                            <small class="text-muted"><a href="https://icons.getbootstrap.com/" target="_blank">Lihat
+                                    ikon</a></small>
+                        </div>
+                        <div class="col-md-9">
+                            <label for="feature_1_title" class="form-label">Judul Fitur</label>
+                            <input type="text" class="form-control" id="feature_1_title" name="feature_1_title"
+                                value="<?= htmlspecialchars($whyUs['feature_1_title'] ?? '') ?>" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="feature_1_desc" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" id="feature_1_desc" name="feature_1_desc" rows="2"
+                            required><?= htmlspecialchars($whyUs['feature_1_desc'] ?? '') ?></textarea>
+                    </div>
+
+                    <hr class="my-4">
+                    <h6 class="mb-3">Fitur 2</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="feature_2_icon" class="form-label">Ikon Bootstrap</label>
+                            <input type="text" class="form-control" id="feature_2_icon" name="feature_2_icon"
+                                value="<?= htmlspecialchars($whyUs['feature_2_icon'] ?? 'bi-gem') ?>">
+                        </div>
+                        <div class="col-md-9">
+                            <label for="feature_2_title" class="form-label">Judul Fitur</label>
+                            <input type="text" class="form-control" id="feature_2_title" name="feature_2_title"
+                                value="<?= htmlspecialchars($whyUs['feature_2_title'] ?? '') ?>" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="feature_2_desc" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" id="feature_2_desc" name="feature_2_desc" rows="2"
+                            required><?= htmlspecialchars($whyUs['feature_2_desc'] ?? '') ?></textarea>
+                    </div>
+
+                    <hr class="my-4">
+                    <h6 class="mb-3">Fitur 3</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="feature_3_icon" class="form-label">Ikon Bootstrap</label>
+                            <input type="text" class="form-control" id="feature_3_icon" name="feature_3_icon"
+                                value="<?= htmlspecialchars($whyUs['feature_3_icon'] ?? 'bi-inboxes') ?>">
+                        </div>
+                        <div class="col-md-9">
+                            <label for="feature_3_title" class="form-label">Judul Fitur</label>
+                            <input type="text" class="form-control" id="feature_3_title" name="feature_3_title"
+                                value="<?= htmlspecialchars($whyUs['feature_3_title'] ?? '') ?>" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="feature_3_desc" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" id="feature_3_desc" name="feature_3_desc" rows="2"
+                            required><?= htmlspecialchars($whyUs['feature_3_desc'] ?? '') ?></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="submit" name="action" value="update_why_us" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Simpan Why Us
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Form Stats -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-graph-up"></i> Statistik</h5>
+            </div>
+            <div class="card-body">
+                <form action="admin-tentang-actions.php" method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h6 class="mb-3">Stat 1</h6>
+                            <div class="mb-2">
+                                <label for="stat_1_icon" class="form-label">Ikon</label>
+                                <input type="text" class="form-control" id="stat_1_icon" name="stat_1_icon"
+                                    value="<?= htmlspecialchars($stats['stat_1_icon'] ?? 'bi-people') ?>">
+                            </div>
+                            <div class="mb-2">
+                                <label for="stat_1_value" class="form-label">Nilai</label>
+                                <input type="number" class="form-control" id="stat_1_value" name="stat_1_value"
+                                    value="<?= htmlspecialchars($stats['stat_1_value'] ?? '232') ?>" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="stat_1_label" class="form-label">Label</label>
+                                <input type="text" class="form-control" id="stat_1_label" name="stat_1_label"
+                                    value="<?= htmlspecialchars($stats['stat_1_label'] ?? 'Klien') ?>" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <h6 class="mb-3">Stat 2</h6>
+                            <div class="mb-2">
+                                <label for="stat_2_icon" class="form-label">Ikon</label>
+                                <input type="text" class="form-control" id="stat_2_icon" name="stat_2_icon"
+                                    value="<?= htmlspecialchars($stats['stat_2_icon'] ?? 'bi-stopwatch') ?>">
+                            </div>
+                            <div class="mb-2">
+                                <label for="stat_2_value" class="form-label">Nilai</label>
+                                <input type="number" class="form-control" id="stat_2_value" name="stat_2_value"
+                                    value="<?= htmlspecialchars($stats['stat_2_value'] ?? '1453') ?>" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="stat_2_label" class="form-label">Label</label>
+                                <input type="text" class="form-control" id="stat_2_label" name="stat_2_label"
+                                    value="<?= htmlspecialchars($stats['stat_2_label'] ?? 'Total Jam Reservasi') ?>"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <h6 class="mb-3">Stat 3</h6>
+                            <div class="mb-2">
+                                <label for="stat_3_icon" class="form-label">Ikon</label>
+                                <input type="text" class="form-control" id="stat_3_icon" name="stat_3_icon"
+                                    value="<?= htmlspecialchars($stats['stat_3_icon'] ?? 'bi-person-badge') ?>">
+                            </div>
+                            <div class="mb-2">
+                                <label for="stat_3_value" class="form-label">Nilai</label>
+                                <input type="number" class="form-control" id="stat_3_value" name="stat_3_value"
+                                    value="<?= htmlspecialchars($stats['stat_3_value'] ?? '32') ?>" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="stat_3_label" class="form-label">Label</label>
+                                <input type="text" class="form-control" id="stat_3_label" name="stat_3_label"
+                                    value="<?= htmlspecialchars($stats['stat_3_label'] ?? 'Pegawai') ?>" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <h6 class="mb-3">Stat 4</h6>
+                            <div class="mb-2">
+                                <label for="stat_4_icon" class="form-label">Ikon</label>
+                                <input type="text" class="form-control" id="stat_4_icon" name="stat_4_icon"
+                                    value="<?= htmlspecialchars($stats['stat_4_icon'] ?? 'bi-columns') ?>">
+                            </div>
+                            <div class="mb-2">
+                                <label for="stat_4_value" class="form-label">Nilai</label>
+                                <input type="number" class="form-control" id="stat_4_value" name="stat_4_value"
+                                    value="<?= htmlspecialchars($stats['stat_4_value'] ?? '3') ?>" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="stat_4_label" class="form-label">Label</label>
+                                <input type="text" class="form-control" id="stat_4_label" name="stat_4_label"
+                                    value="<?= htmlspecialchars($stats['stat_4_label'] ?? 'Lapangan') ?>" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="submit" name="action" value="update_stats" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Simpan Statistik
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

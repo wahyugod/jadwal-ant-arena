@@ -217,3 +217,53 @@ INSERT INTO `footer` (`address`, `phone`, `email`, `instagram`, `facebook`, `twi
 ('Jl. Rejang Raya Gg Barokah, Bukit Pinang, Kec. Samarinda Ulu, Kota Samarinda, Kalimantan Timur 75131', '+62 812-3456-7890', 'info@nts-arena.com', 'https://instagram.com/ntsarena', '#', '#', '#', 'Senin-Jumat: 8 Pagi - 11 Malam', 'Sabtu-Minggu: 8 Pagi - 11 Malam');
 
 ALTER TABLE footer DROP COLUMN address, DROP COLUMN phone, DROP COLUMN email, ADD COLUMN description TEXT AFTER id, ADD COLUMN copyright VARCHAR(255) AFTER description;
+
+CREATE TABLE IF NOT EXISTS `why_us` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL DEFAULT 'Kenapa @nt''s Arena?',
+  `paragraph_1` TEXT NOT NULL,
+  `paragraph_2` TEXT NOT NULL,
+  `feature_1_icon` VARCHAR(50) NOT NULL DEFAULT 'bi-clipboard-data',
+  `feature_1_title` VARCHAR(255) NOT NULL,
+  `feature_1_desc` TEXT NOT NULL,
+  `feature_2_icon` VARCHAR(50) NOT NULL DEFAULT 'bi-gem',
+  `feature_2_title` VARCHAR(255) NOT NULL,
+  `feature_2_desc` TEXT NOT NULL,
+  `feature_3_icon` VARCHAR(50) NOT NULL DEFAULT 'bi-inboxes',
+  `feature_3_title` VARCHAR(255) NOT NULL,
+  `feature_3_desc` TEXT NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+
+INSERT INTO `why_us` (`title`, `paragraph_1`, `paragraph_2`, `feature_1_title`, `feature_1_desc`, `feature_2_title`, `feature_2_desc`, `feature_3_title`, `feature_3_desc`) VALUES 
+    ('Kenapa @nt''s Arena?',
+    '@nt''s Arena adalah pilihan terbaik untuk Anda yang ingin menyewa lapangan di Samarinda. Kami menyediakan lapangan berkualitas dengan lantai berstandar turnamen, pencahayaan optimal, serta suasana nyaman untuk latihan maupun pertandingan.',
+    'Dengan sistem pemesanan yang mudah dan harga sewa yang terjangkau, Anda dapat bermain kapan saja tanpa khawatir kehabisan jadwal. Kami juga menyediakan fasilitas lengkap untuk mendukung pengalaman bermain Anda.',
+    'Lapangan Standar Turnamen',
+    'Permukaan lapangan berkualitas tinggi dengan pencahayaan yang dirancang agar nyaman di mata dan cocok untuk pertandingan profesional.',
+    'Pemesanan Online Mudah',
+    'Booking jadwal bermain Anda secara online kapan pun dan di mana pun tanpa perlu antre. Jadwalkan permainan dengan cepat dan praktis tanpa lama tanpa ribet.',
+    'Harga & Fasilitas Lengkap',
+    'Nikmati tarif sewa bersahabat dengan fasilitas memadai seperti kantin, mushola, dan pencahayaan LED untuk mendukung kenyamanan Anda bermain.')";
+
+CREATE TABLE IF NOT EXISTS `stats` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `stat_1_icon` VARCHAR(50) NOT NULL DEFAULT 'bi-people',
+  `stat_1_value` INT NOT NULL,
+  `stat_1_label` VARCHAR(100) NOT NULL,
+  `stat_2_icon` VARCHAR(50) NOT NULL DEFAULT 'bi-stopwatch',
+  `stat_2_value` INT NOT NULL,
+  `stat_2_label` VARCHAR(100) NOT NULL,
+  `stat_3_icon` VARCHAR(50) NOT NULL DEFAULT 'bi-person-badge',
+  `stat_3_value` INT NOT NULL,
+  `stat_3_label` VARCHAR(100) NOT NULL,
+  `stat_4_icon` VARCHAR(50) NOT NULL DEFAULT 'bi-columns',
+  `stat_4_value` INT NOT NULL,
+  `stat_4_label` VARCHAR(100) NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+
+INSERT INTO `stats` (`stat_1_value`, `stat_1_label`, `stat_2_value`, `stat_2_label`, `stat_3_value`, `stat_3_label`, `stat_4_value`, `stat_4_label`) VALUES 
+    (232, 'Klien', 1453, 'Total Jam Reservasi', 32, 'Pegawai', 3, 'Lapangan')";

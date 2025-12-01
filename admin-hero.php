@@ -16,55 +16,59 @@ $pageBreadcrumb = 'Hero';
 include 'header.php';
 ?>
 <div class="row">
-                <div class="col-lg-8">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="mb-0">Form Hero Beranda</h5>
-                        </div>
-                        <div class="card-body">
-                            <form action="admin-hero-actions.php" method="POST" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label for="heading" class="form-label">Judul / Heading</label>
-                                    <input type="text" class="form-control" id="heading" name="heading"
-                                        value="<?php echo htmlspecialchars($heading); ?>" required>
-                                    <small class="text-muted">Teks ini akan muncul besar di beranda.</small>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="images" class="form-label">Gambar Background (opsional - bisa pilih
-                                        banyak)</label>
-                                    <input type="file" class="form-control" id="images" name="images[]" accept="image/*"
-                                        multiple>
-                                    <small class="text-muted">Pilih satu atau lebih gambar. Akan otomatis jadi slider di
-                                        beranda. Format: JPG, PNG, GIF, WEBP. Maks 5MB per file.</small>
-                                </div>
-                                <div class="d-flex justify-content-end gap-2">
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Simpan
-                                    Perubahan</button>
-                                </div>
-                            </form>
-                        </div>
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Form Hero Beranda</h5>
+            </div>
+            <div class="card-body">
+                <form action="admin-hero-actions.php" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="heading" class="form-label">Judul / Heading</label>
+                        <input type="text" class="form-control" id="heading" name="heading"
+                            value="<?php echo htmlspecialchars($heading); ?>" required>
+                        <small class="text-muted">Teks ini akan muncul besar di beranda.</small>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="mb-0">Gambar Hero Saat Ini</h5>
-                        </div>
-                        <div class="card-body">
-                            <?php
+                    <div class="mb-3">
+                        <label for="images" class="form-label">Gambar Background (opsional - bisa pilih
+                            banyak)</label>
+                        <input type="file" class="form-control" id="images" name="images[]" accept="image/*" multiple>
+                        <small class="text-muted">Pilih satu atau lebih gambar. Akan otomatis jadi slider di
+                            beranda. Format: JPG, PNG, GIF, WEBP. Maks 5MB per file.</small>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Simpan
+                            Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Gambar Hero Saat Ini</h5>
+            </div>
+            <div class="card-body">
+                <?php
                             $heroDir = __DIR__ . '/assets/hero/';
                             $heroFiles = glob($heroDir . '*.{jpg,jpeg,png,webp,gif,JPG,JPEG,PNG,WEBP,GIF}', GLOB_BRACE) ?: [];
                             usort($heroFiles, function($a,$b){ return filemtime($b) <=> filemtime($a); });
                             if (count($heroFiles) > 0) {
-                                echo '<div class="row g-2">';
+                                echo '<div class="row g-3">';
                                 foreach ($heroFiles as $f) {
                                     $rel = 'assets/hero/' . basename($f);
                                     $fname = basename($f);
-                                    echo '<div class="col-6 mb-2">';
-                                    echo '<img src="' . htmlspecialchars($rel) . '" alt="Hero" class="img-thumbnail" style="width:100%; height:100px; object-fit:cover;">';
-                                    echo '<div class="d-grid">';
+                                    echo '<div class="col-lg-2 col-md-3 col-sm-4 col-6">';
+                                    echo '<div class="card h-100">';
+                                    echo '<img src="' . htmlspecialchars($rel) . '" alt="Hero" class="card-img-top" style="height:150px; object-fit:cover;">';
+                                    echo '<div class="card-body p-2">';
                                     $onclick = 'hapusGeneric(' . json_encode('admin-hero-actions.php') . ', {filename: ' . json_encode($fname) . '}, ' . json_encode('action') . ', ' . json_encode('delete_image') . ', ' . json_encode('Hapus gambar ini?') . ')';
                                     echo "<button class=\"btn btn-sm btn-danger w-100\" onclick='" . $onclick . "'><i class=\"bi bi-trash\"></i> Hapus</button>";
+                                    echo '</div>';
                                     echo '</div>';
                                     echo '</div>';
                                 }
@@ -73,9 +77,8 @@ include 'header.php';
                                 echo '<p class="text-muted">Belum ada gambar hero.</p>';
                             }
                             ?>
-                        </div>
-                    </div>
-                </div>
             </div>
+        </div>
+    </div>
+</div>
 <?php include 'footer.php'; ?>
-
