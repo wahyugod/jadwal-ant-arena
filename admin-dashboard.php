@@ -274,7 +274,7 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 mb-4">
-                        <div class="card stat-card warning">
+                        <div class="card stat-card danger">
                             <div class="card-body d-flex align-items-center">
                                 <div class="stat-icon d-flex justify-content-center align-items-center"
                                     style="margin-top: 15px; margin-right: 15px; flex-shrink: 0; font-size: 3rem; width: 60px; height: 60px;">
@@ -889,12 +889,12 @@ $result = $conn->query($sql);
                     datasets: [{
                             label: 'Pemasukan',
                             data: pemasukan,
-                            borderColor: 'rgb(67, 24, 255)',
-                            backgroundColor: 'rgba(67, 24, 255, 0.1)',
+                            borderColor: '#01b574',
+                            backgroundColor: 'rgba(1, 181, 116, 0.1)',
                             borderWidth: 3,
                             fill: true,
                             tension: 0.4,
-                            pointBackgroundColor: 'rgb(67, 24, 255)',
+                            pointBackgroundColor: '#01b574',
                             pointBorderColor: '#fff',
                             pointBorderWidth: 2,
                             pointRadius: 5,
@@ -903,12 +903,12 @@ $result = $conn->query($sql);
                         {
                             label: 'Pengeluaran',
                             data: pengeluaran,
-                            borderColor: 'rgb(255, 99, 71)',
-                            backgroundColor: 'rgba(255, 99, 71, 0.1)',
+                            borderColor: '#e53e30',
+                            backgroundColor: 'rgba(229, 62, 48, 0.1)',
                             borderWidth: 3,
                             fill: true,
                             tension: 0.4,
-                            pointBackgroundColor: 'rgb(255, 99, 71)',
+                            pointBackgroundColor: '#e53e30',
                             pointBorderColor: '#fff',
                             pointBorderWidth: 2,
                             pointRadius: 5,

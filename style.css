@@ -392,6 +392,12 @@ body {
   --card-color: #ffb547;
   --card-color-light: #ffa626;
 }
+
+.stat-card.danger {
+  --card-color: #ee5d50;
+  --card-color-light: #e53e30;
+}
+
 .stat-card.info {
   --card-color: #6ad2ff;
   --card-color-light: #2bb0ed;
@@ -440,6 +446,15 @@ body {
     rgba(43, 176, 237, 0.1)
   );
   color: var(--stat-spend);
+}
+
+.stat-card.danger .stat-icon {
+  background: linear-gradient(
+    135deg,
+    rgba(238, 93, 80, 0.1),
+    rgba(229, 62, 48, 0.1)
+  );
+  color: #ee5d50;
 }
 
 /* Stat values & change indicators (ensure visible) */
