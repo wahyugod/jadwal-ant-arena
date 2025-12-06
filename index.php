@@ -202,9 +202,9 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
                 <?php endif; ?>
             </div>
             <div class="container">
-                <div class="row gy-4 justify-content-center align-items-center" style="min-height: calc(100vh - 80px);">
+                <div class="row gy-4 justify-content-center align-items-center">
                     <div class="col-lg-8 d-flex flex-column justify-content-center text-center">
-                        <h1 style="font-size: 8rem;" class="hero-title" data-aos="fade-up"><?= e($heroHeading) ?></h1>
+                        <h1 class="hero-title" data-aos="fade-up"><?= e($heroHeading) ?></h1>
                         <div class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
                             <a href="#reservasi" class="btn-get-started">Reservasi Sekarang</a>
                         </div>
@@ -336,10 +336,10 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-                            <i class="<?= e($statsData['stat_1_icon']) ?> stats-icon me-3 d-flex align-items-center justify-content-center"
-                                style="font-size: 4rem; padding-top: 13px"></i>
+                            <i class="<?= e($statsData['stat_1_icon']) ?> stats-icon me-3"></i>
                             <div class="text-center d-flex flex-column justify-content-center">
-                                <span data-purecounter-start="0" data-purecounter-end="<?= e($statsData['stat_1_value']) ?>"
+                                <span data-purecounter-start="0"
+                                    data-purecounter-end="<?= e($statsData['stat_1_value']) ?>"
                                     data-purecounter-duration="1" class="purecounter d-block"></span>
                                 <p class="mb-0"><?= e($statsData['stat_1_label']) ?></p>
                             </div>
@@ -348,10 +348,10 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-                            <i class="<?= e($statsData['stat_2_icon']) ?> stats-icon me-3 d-flex align-items-center justify-content-center"
-                                style="font-size: 4rem; padding-top: 13px"></i>
+                            <i class="<?= e($statsData['stat_2_icon']) ?> stats-icon me-3"></i>
                             <div class="text-center d-flex flex-column justify-content-center">
-                                <span data-purecounter-start="0" data-purecounter-end="<?= e($statsData['stat_2_value']) ?>"
+                                <span data-purecounter-start="0"
+                                    data-purecounter-end="<?= e($statsData['stat_2_value']) ?>"
                                     data-purecounter-duration="1" class="purecounter d-block"></span>
                                 <p class="mb-0"><?= e($statsData['stat_2_label']) ?></p>
                             </div>
@@ -360,11 +360,11 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-                            <i class="<?= e($statsData['stat_3_icon']) ?> stats-icon me-3 d-flex align-items-center justify-content-center"
-                                style="font-size: 4rem; padding-top: 13px"></i>
+                            <i class="<?= e($statsData['stat_3_icon']) ?> stats-icon me-3"></i>
                             <div class="text-center d-flex flex-column justify-content-center">
-                                <span data-purecounter-start="0" data-purecounter-end="<?= e($statsData['stat_3_value']) ?>" data-purecounter-duration="1"
-                                    class="purecounter d-block"></span>
+                                <span data-purecounter-start="0"
+                                    data-purecounter-end="<?= e($statsData['stat_3_value']) ?>"
+                                    data-purecounter-duration="1" class="purecounter d-block"></span>
                                 <p class="mb-0"><?= e($statsData['stat_3_label']) ?></p>
                             </div>
                         </div>
@@ -372,11 +372,11 @@ function e($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-                            <i class="<?= e($statsData['stat_4_icon']) ?> stats-icon me-3 d-flex align-items-center justify-content-center"
-                                style="font-size: 4rem; padding-top: 13px"></i>
+                            <i class="<?= e($statsData['stat_4_icon']) ?> stats-icon me-3"></i>
                             <div class="text-center d-flex flex-column justify-content-center">
-                                <span data-purecounter-start="0" data-purecounter-end="<?= e($statsData['stat_4_value']) ?>" data-purecounter-duration="1"
-                                    class="purecounter d-block"></span>
+                                <span data-purecounter-start="0"
+                                    data-purecounter-end="<?= e($statsData['stat_4_value']) ?>"
+                                    data-purecounter-duration="1" class="purecounter d-block"></span>
                                 <p class="mb-0"><?= e($statsData['stat_4_label']) ?></p>
                             </div>
                         </div>
@@ -598,9 +598,7 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
         <!-- ===== JADWAL SECTION ===== -->
         <section id="jadwal" class="jadwal-section section light-background position-relative">
 
-            <img src="assets/img/schedule.png" class="position-absolute top-0 start-0"
-                style="left: 25%; width: 220px; opacity: 0.8; z-index: 0;">
-
+            <img src="assets/img/schedule.png" class="schedule-decoration">
 
             <!-- Section Title -->
             <div class="container section-title position-relative" data-aos="fade-up">
@@ -651,8 +649,7 @@ if ($res) { while($r=$res->fetch_assoc()) { $paketRows[]=$r; } $res->free_result
         <!-- Testimonial Section -->
         <section id="testimoni" class="testimonials section position-relative">
 
-            <img src="assets/img/ilust.png" class="position-absolute end-0 bottom-0 me-3 mb-3 d-none d-md-block"
-                style="width: 260px;">
+            <img src="assets/img/ilust.png" class="testimonial-decoration">
 
 
             <!-- Section Title -->
